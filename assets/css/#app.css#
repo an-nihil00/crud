@@ -113,6 +113,18 @@ a:hover {
 
 }
 
+.post {
+
+}
+
+.subject {
+
+}
+
+.name {
+
+}
+
 .postMessage {
     margin: 1em 40px;
 }

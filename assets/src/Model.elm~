@@ -1,0 +1,42 @@
+-- assets/src/Model.elm
+
+module Model exposing (..)
+
+type alias Model =
+    { threadList : ThreadList
+    , error : Maybe String
+    , inputState : InputState
+    }
+    
+type alias ThreadList =
+    { threads : List Thread
+    }
+
+type alias Thread =
+    { thread_id : Int
+    , subject : String
+    , name : String
+    , content : String
+    , image : String
+    }
+    
+type alias Post =
+    { post_id : Int
+    , name : String
+    , content : String
+    , image : String
+    }
+
+type InputState = ThreadWaiting | ThreadForm
+    
+initialThreadList : ThreadList
+initialThreadList =
+    { threads = []
+    }
+    
+initialModel : Model
+initialModel =
+    { threadList = initialThreadList
+    , error = Nothing
+    , inputState = ThreadWaiting
+    }

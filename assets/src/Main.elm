@@ -1,4 +1,9 @@
 module Main exposing (main)
-import Html exposing (text)
-main =
-    text "Hello Elm and Phoenix!"
+
+import Browser
+import View
+import Update
+import Model
+
+main = 
+    Browser.sandbox { init = Model.initialModel , update = Update.update, view = View.view}
