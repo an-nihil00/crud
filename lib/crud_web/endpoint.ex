@@ -1,5 +1,5 @@
 defmodule CrudWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :crud
+  use Phoenix.Endpoint, otp_app: :chan
 
   socket "/socket", CrudWeb.UserSocket,
     websocket: true,
@@ -11,7 +11,7 @@ defmodule CrudWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :crud,
+    from: :chan,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -39,7 +39,7 @@ defmodule CrudWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_crud_key",
+    key: "_chan_key",
     signing_salt: "BbXJVNpt"
 
   plug CrudWeb.Router

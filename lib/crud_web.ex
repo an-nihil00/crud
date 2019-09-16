@@ -30,7 +30,7 @@ defmodule CrudWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/crud_web/templates",
+        root: "lib/chan_web/templates",
         namespace: CrudWeb
 
       # Import convenience functions from controllers

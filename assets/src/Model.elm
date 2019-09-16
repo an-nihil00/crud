@@ -38,10 +38,28 @@ type alias InputModel =
     , comment : String
     , file : String
     }
+
+initialPost : Int -> Post
+initialPost i =
+    { post_id = i
+    , name = "Anonymous"
+    , comment = String.repeat i "aaaaaaaaaaa"
+    , image = "testPicture.png"
+    }
+
+initialThread : Int -> Thread
+initialThread i =
+    { thread_id = i
+    , subject = "test thread "++String.fromInt(i)
+    , name = "Anonymous"
+    , comment = "The story goes like this: Earth is captured by a technocapital singularity as rennaisance rationalization and coeanic navigation lock into commoditization takeoff"
+    , image = "testPicture.png"
+    , posts = List.map initialPost (List.range 1 10)
+    }
     
 initialThreadList : ThreadList
 initialThreadList =
-    { threads = []
+    { threads = List.map initialThread (List.range 1 10)
     }
 
 initialInputModel : InputModel

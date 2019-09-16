@@ -3,10 +3,8 @@ defmodule Crud.Thread do
   import Ecto.Changeset
 
   schema "threads" do
-    field :comment, :string
-    field :file, :string
-    field :name, :string
-    field :posts, {:array, :integer}
+    field :op, :integer
+    field :replies, {:array, :integer}
     field :subject, :string
 
     timestamps()
@@ -15,7 +13,7 @@ defmodule Crud.Thread do
   @doc false
   def changeset(thread, attrs) do
     thread
-    |> cast(attrs, [:name, :subject, :comment, :file, :posts])
-    |> validate_required([:name, :subject, :comment, :file, :posts])
+    |> cast(attrs, [:subject, :op, :replies])
+    |> validate_required([:subject, :op, :replies])
   end
 end

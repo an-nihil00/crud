@@ -12,9 +12,9 @@ import Model exposing (..)
 view : Model -> Html Msg
 view model =
     div [id "wrapper"]
-        [ h1 [] [text "EmiChan" ]
+        [ h1 [] [text "TestChan" ]
         , hr[class "abovePostInput"][]
         , inputView model
-        , hr[][]
         , threadListView model.threadList
+        , hr[][]
         ]

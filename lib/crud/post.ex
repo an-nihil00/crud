@@ -1,10 +1,9 @@
-defmodule Crud.Post do
+defmodule Crud.Crud.Post do
   use Ecto.Schema
   import Ecto.Changeset
 
   schema "posts" do
-    field :content, :string
-    field :id, :integer
+    field :comment, :string
     field :image, :string
     field :name, :string
 
@@ -14,7 +13,7 @@ defmodule Crud.Post do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:id, :name, :content, :image])
-    |> validate_required([:id, :name, :content, :image])
+    |> cast(attrs, [:name, :comment, :image])
+    |> validate_required([:name, :comment, :image])
   end
 end

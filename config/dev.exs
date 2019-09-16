@@ -1,10 +1,10 @@
 use Mix.Config
 
 # Configure your database
-config :crud, Crud.Repo,
+config :chan, Crud.Repo,
   username: "postgres",
   password: "postgres",
-  database: "crud_dev",
+  database: "chan_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -15,7 +15,7 @@ config :crud, Crud.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :crud, CrudWeb.Endpoint,
+config :chan, CrudWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -55,13 +55,13 @@ config :crud, CrudWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :crud, CrudWeb.Endpoint,
+config :chan, CrudWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/crud_web/{live,views}/.*(ex)$",
-      ~r"lib/crud_web/templates/.*(eex)$"
+      ~r"lib/chan_web/{live,views}/.*(ex)$",
+      ~r"lib/chan_web/templates/.*(eex)$"
     ]
   ]
 

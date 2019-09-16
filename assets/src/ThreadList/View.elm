@@ -17,10 +17,23 @@ threadListView threadList =
 threadView : Thread -> Html Msg
 threadView thread =
    div[][hr[][] , div [ class "thread" ]
-        [
-         
-        ]]
+        ([ div [class "file"][text ("File: "++thread.image)]
+        , div [class "postInfo"]
+              [ input [type_ "checkbox"][]
+              , span [class "subject"][text (" "++thread.subject++" ")]
+              , span [class "name"][text thread.name]
+              , text (" No."++(String.fromInt thread.thread_id))]
+        , p[class "comment"][text thread.comment]]
+        ++ List.map postView thread.posts)
+        ]
 
 postView : Post -> Html Msg
 postView post =
-    div[ class "post" ][p[class "postMessage"][text post.comment]]
+    div[class "postWrapper"][ div[ class "sideArrows"][text ">>"]
+         , div[ class "post" ]
+              [ div [class "postInfo"]
+                    [ input [type_ "checkbox"][]
+                    , span [class "name"][text (" "++post.name)]
+                    , text (" No."++(String.fromInt post.post_id))]
+              , p[class "comment"][text post.comment]
+              ]]

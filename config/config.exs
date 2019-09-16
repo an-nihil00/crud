@@ -7,11 +7,11 @@
 # General application configuration
 use Mix.Config
 
-config :crud,
+config :chan,
   ecto_repos: [Crud.Repo]
 
 # Configures the endpoint
-config :crud, CrudWeb.Endpoint,
+config :chan, CrudWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "0PRiZVpBDRUgBGYv6weW7L2SiW0Rsf7iEMdlT5ds16DXlyAmZTjqWVbswpbRsbHW",
   render_errors: [view: CrudWeb.ErrorView, accepts: ~w(html json)],
