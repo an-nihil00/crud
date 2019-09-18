@@ -1,0 +1,12 @@
+defmodule Chan.BoardController do
+  use Chan.Web, :controller
+
+  alias Chan.Board
+
+  def index(conn, params) do
+    page = Board
+      |> order_by(:abb)
+
+    render conn, page: page
+  end
+end

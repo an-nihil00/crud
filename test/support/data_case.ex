@@ -1,4 +1,4 @@
-defmodule Crud.DataCase do
+defmodule Chan.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule Crud.DataCase do
 
   using do
     quote do
-      alias Crud.Repo
+      alias Chan.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Crud.DataCase
+      import Chan.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Crud.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Chan.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Crud.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Chan.Repo, {:shared, self()})
     end
 
     :ok

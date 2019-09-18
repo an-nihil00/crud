@@ -1,4 +1,4 @@
-defmodule Chan.Repo.Migrations.Create<%= String.capitalize(@abb)%>Board
+defmodule Chan.Repo.Migrations.Create<%= String.capitalize(@abb)%>Board do
   use Ecto.Migration
 
   def change do
@@ -16,5 +16,6 @@ defmodule Chan.Repo.Migrations.Create<%= String.capitalize(@abb)%>Board
 
       timestamps()
     end
+    execute "INSERT INTO boards (abb, name, posts) VALUES ('<%= @abb%>','<%= @name%>',0)"
   end
 end

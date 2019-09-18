@@ -1,7 +1,7 @@
 use Mix.Config
 
 # Configure your database
-config :chan, Crud.Repo,
+config :chan, Chan.Repo,
   username: "postgres",
   password: "postgres",
   database: "chan_test",
@@ -10,7 +10,7 @@ config :chan, Crud.Repo,
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :chan, CrudWeb.Endpoint,
+config :chan, ChanWeb.Endpoint,
   http: [port: 4002],
   server: false
 

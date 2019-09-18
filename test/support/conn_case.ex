@@ -1,4 +1,4 @@
-defmodule CrudWeb.ConnCase do
+defmodule ChanWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,18 +19,18 @@ defmodule CrudWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      alias CrudWeb.Router.Helpers, as: Routes
+      alias ChanWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint CrudWeb.Endpoint
+      @endpoint ChanWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Crud.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Chan.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Crud.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Chan.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}

@@ -1,4 +1,4 @@
-# Crud
+# Chan
 
 To start your Phoenix server:
 

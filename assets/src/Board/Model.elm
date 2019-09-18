@@ -1,12 +1,11 @@
--- assets/src/Model.elm
+-- assets/src/Board/Model.elm
 
-module Model exposing (..)
+module Board.Model exposing (..)
 
-type alias Model =
+type alias BoardModel =
     { threadList : ThreadList
     , error : Maybe String
-    , inputState : InputState
-    , inputModel : InputModel
+    , input : Input
     }
     
 type alias ThreadList =
@@ -29,5 +28,9 @@ type alias Post =
     , image : String
     }
 
-type InputState = Hidden|Editing|Saving|Invalid|Success
+type Input = Hidden 
+           | Editing
+           | Saving
+           | Invalid
+           | Success
     

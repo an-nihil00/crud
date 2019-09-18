@@ -8,14 +8,14 @@
 use Mix.Config
 
 config :chan,
-  ecto_repos: [Crud.Repo]
+  ecto_repos: [Chan.Repo]
 
 # Configures the endpoint
-config :chan, CrudWeb.Endpoint,
+config :chan, ChanWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "0PRiZVpBDRUgBGYv6weW7L2SiW0Rsf7iEMdlT5ds16DXlyAmZTjqWVbswpbRsbHW",
-  render_errors: [view: CrudWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Crud.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: ChanWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Chan.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
