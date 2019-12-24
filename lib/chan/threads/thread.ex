@@ -1,11 +1,10 @@
-defmodule Chan.Thread do
+defmodule Chan.Threads.Thread do
   use Ecto.Schema
   import Ecto.Changeset
 
   schema "threads" do
-    field :op, :integer
-    field :replies, {:array, :integer}
     field :subject, :string
+    has_many :posts, Chan.Posts.Post
 
     timestamps()
   end
@@ -13,7 +12,7 @@ defmodule Chan.Thread do
   @doc false
   def changeset(thread, attrs) do
     thread
-    |> cast(attrs, [:subject, :op, :replies])
-    |> validate_required([:subject, :op, :replies])
+    |> cast(attrs, [:subject])
+    |> validate_required([:subject])
   end
 end

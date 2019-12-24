@@ -13,22 +13,19 @@ defmodule ChanWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ChanWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-    #get "/:board", PageController, :board
-    #get "/:board/:id", PageController, :thread
-    
-  end
-
   scope "/api", ChanWeb do
     pipe_through :api
 
-    resources "/", BoardController, only: [:index] do
-      resources "/", ThreadController, only: [:index, :show, :create, :delete] do
+    resources "/", BoardController, only: [:index, :show] do
+      resources "/", ThreadController, only: [:show, :create, :delete] do
 	resources "/", PostController, only: [:create, :delete]
       end
     end
+  end
+
+  scope "/", ChanWeb do
+    pipe_through :browser
+
+    get "/*path", PageController, :index
   end
 end

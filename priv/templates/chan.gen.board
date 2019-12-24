@@ -2,33 +2,41 @@ defmodule Chan.Repo.Migrations.Create<%= String.capitalize(@abb)%>Board do
   use Ecto.Migration
   import Ecto.Query
 
+  
   def up do
-    create table(:<%= @abb%>_threads) do
+    execute "CREATE SCHEMA <%= @abb%>"
+    create table(:threads, prefix: "<%= @abb%>") do
       add :subject, :string
-      add :op, :integer
-      add :posts, {:array, :integer}
 
       timestamps()
     end
-    
-    create table(:<%= @abb%>_posts) do
+
+    create table(:posts, prefix: "<%= @abb%>") do
       add :name, :string
-      add :comment, :text
       add :image, :string
+      add :comment, :text
+      add :thread_id, references(:threads)
 
       timestamps()
     end
-    
-    Chan.Repo.insert!(%Chan.Board{
+
+    create table(:replies, prefix: "<%= @abb%>") do
+      add :post, references(:posts)
+      add :reply, references(:posts)
+    end
+
+    create unique_index(:replies, [:post, :reply], prefix: "<%= @abb%>")
+
+    Chan.Repo.insert!(%Chan.Boards.Board{
       abb: "<%= @abb%>",
       name: "<%= @name%>",
-      posts: 0
+      total_posts: 0
     })
   end
   
   def down do
-    drop table(:<%= @abb%>_threads)
-    drop table(:<%= @abb%>_posts)
-    from(b in Chan.Board, where: b.abb == "<%= @abb%>") |> Chan.Repo.delete_all
+    drop table(:threads, prefix: "<%= @abb%>")
+    drop table(:posts, prefix: "<%= @abb%>")
+    from(b in Chan.Boards.Board, where: b.abb == "<%= @abb%>") |> Chan.Repo.delete_all
   end
 end

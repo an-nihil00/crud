@@ -5,11 +5,11 @@ defmodule Chan.Repo.Migrations.CreateBoards do
     create table(:boards) do
       add :abb, :string
       add :name, :string
-      add :posts, :integer
+      add :total_posts, :integer
 
       timestamps()
     end
-
+    
     create unique_index(:boards, [:abb])
   end
 end
