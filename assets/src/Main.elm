@@ -54,9 +54,9 @@ type Msg
 routeParser : Parser (Route -> a) a
 routeParser =
   oneOf
-    [ map Home (top)
-    , map Board  (string)
-    , map threadOrPost (string </> int </> fragment (Maybe.andThen String.toInt))
+    [ Url.Parser.map Home (top)
+    , Url.Parser.map Board  (string)
+    , Url.Parser.map threadOrPost (string </> int </> fragment (Maybe.andThen String.toInt))
     ]
 
 threadOrPost : String -> Int -> Maybe Int -> Route
@@ -106,14 +106,14 @@ view : Model -> Browser.Document Msg
 view model =
     case model.route of
         Home ->
-            { title = "EmiChan"
+            { title = "EmmyChan"
             , body =
-                  [ img [src "images/banner.svg"][]
+                  [
                   ]
             }
         Board board ->
             { title = board
-            , body = []
+            , body = [text board]
             }
         Thread board thread ->
             { title = board
