@@ -1,8 +1,0 @@
---assets/src/Messages.elm
-
-module Messages exposing (..)
-
-import Model exposing (..)
-
-type Msg
-    = ShowInput
