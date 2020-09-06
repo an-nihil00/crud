@@ -3,6 +3,9 @@ defmodule ChanWeb.BoardController do
 
   alias Chan.Boards
   alias Chan.Boards.Board
+  alias Chan.Threads
+  alias Chan.Threads.Thread
+  alias Chan.Posts.Post
 
   action_fallback ChanWeb.FallbackController
 
@@ -20,9 +23,12 @@ defmodule ChanWeb.BoardController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(%{private: %{phoenix_format: format}} = conn, %{"id" => id}) do
     board = Boards.get_board!(id)
-    render(conn, "show.json", board: board)
+    threads = Threads.list_threads(board.abb)
+    boards = Boards.list_boards()
+    changeset = %Thread{} |> Thread.changeset(%{posts: [%{}]})
+    render(conn, "show.#{format}", board: board, threads: threads, boards: boards, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "board" => board_params}) do

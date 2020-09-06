@@ -1,155 +1,203 @@
 /* This file is for your main application css. */
 
-$font-stack:'terminus','inconsolata',monospace;
+$font-stack:'terminus','terminus (ttf)','inconsolata',monospace;
+$accent-color1:#e60073;
+$accent-color2: #9D5F8D;
+$text-color1:white;
+$text-color2:#aaa;
 
 body {
     background-color:black;
     color:white;
     font-family:$font-stack;
-    font-size:10pt;
-    paddin: 0px 5px;
-}
-
-#wrapper {
-    display:flex;
-    flex-direction: column;
-    width:auto;
+    font-size:12pt;
+    padding: 0px 5px;
 }
 
 h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0px;
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.navbar::before {
+    content: "[";
+}
+
+.navbar::after {
+    content: "]";
+}
+
+.navbar a {
+    text-decoration: none;
+}
+
+.navbar a:link, .navbar a:visited {
     color:white;
-    text-align:center;
-    font-family:$font-stack;
-    font-size:28px;
-    font-weight:700;
-    margin:0px;
+}
+
+.navbar a:hover {
+    color:$accent-color1;
 }
 
 hr {
-    width:100%;
-    height:1px;
-    border:none;
-    border-top:1px solid #555;
+    border: none;
+    border-top:1px solid white;
+    height:0px;
 }
 
-hr.abovePostInput {
+.abovePostForm {
     width:90%;
 }
 
-#input {
-    min-width:500px;
-    margin:auto;
-    display: flex;
-    flex-direction: column;
+#postForm table {
+    margin: auto;
+    width: 468px;
 }
 
-#togglePostForm {
-    text-align:center;
-    font-size:22px;
+#postForm th {
+    text-align: left;
+    padding: 1px 5px;
+    font-size: 12pt;
+    font-weight: 700px;
+    border: 1px solid white;
 }
 
-#postButton {
-    width:55px;
+#postForm input[type="text"], button, textarea {
+    font-size:12pt;
+    padding: 1px 5px;
+    margin: 0px;
+    border: 1px solid white;
+    background: black;
+    color: white;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
 }
 
-a {
-    color:#e60073;
-    cursor:pointer;
+#postForm input[type="text"] {
+    width: 244px;
 }
 
-a:hover {
-    color:#a5427e;
-}
-.inputRow {
-    display: flex;
-    flex-direction: row;
-    flex-grow:1;
-    font-size:10pt;
+textarea {
+    font-family:$font-stack;
+    width: 292px;
+    height: 76px;
 }
 
-.inputRow * {
-    border: 1px solid grey;
-    outline-color: #e60073;
-    margin: 1px;
+#postForm button {
+    margin-left:4px;
 }
 
-.inputRow input {
-    width:245px;
-    padding: 2px 4px;
+#postForm button:hover {
+    color:$accent-color1;
 }
 
-.inputRow input[type=file] {
-    border: none;
-    padding: 0px;
-}
-
-.inputRow textarea {
-    width:300px;
-    height:60px;
-    padding: 2px 4px;
-    font-family: arial,helvetica,sans-serif;
-    font-size:10pt;
-}
-
-.inputLabel {
-    width:90px;
-    padding: 0px 5px;
-    border:1px solid #000;
-    background-color:#555;
-    display:flex;
-    font-weight:700;
-    color:#bbb;
-}
-
-.inputLabel p {
-    margin:auto 0px;
-    border:none;
-}
-
-#board {
-    margin:0px;
-    padding:0px;
-    border:0px;
-    background-color:white;
-}
-
-.thread {
-
-}
-
-.postInfo {
-    display:block;
+.intro {
+    margin:0;
 }
 
 .subject {
+    color:$accent-color1;
     font-weight:700;
-    color:#e60073;
 }
 
 .name {
-    font-weight:700;
+    color:$accent-color2;
+    font-weight: 700;
 }
 
-.comment {
-    margin: 1em 40px;
+.timestamp {
+    color:$text-color2;
 }
 
-.file {
-
+.timestamp a {
+    color:$text-color2;
 }
 
-.postWrapper {
+.button {
+    color:$text-color1;
+}
+
+.button::before {
+    content:'['
+}
+
+.button::after {
+    content:']'
+}
+
+.button {
+    text-decoration:none;
+}
+
+.button:hover {
+    color:$accent-color1;
+}
+
+.intro a {
+    text-decoration:none;
+}
+
+.timestamp a:hover {
+    color:$accent-color1;
+    text-decoration:underline;
+}
+
+.postContainer {
     display:flex;
-    flex-flow:row;
-}
-
-.post {
-    background-color:#333;
-    padding: 2px;
-    margin: 2px 0px;
-    overflow:hidden;
 }
 
 .sideArrows {
-    margin:0px 2px;
+    color:$text-color2;
+    margin: 0 2px;
+    float:left;
 }
+
+.reply {
+    background:#333;
+    padding:6px;
+    border: 1px solid #222;
+    margin:4px 0;
+}
+
+.replyText {
+    margin: .06em 1.8em;
+    white-space: pre-line;
+}
+
+#threads {
+    text-align:center;
+}
+
+.catalog {
+    width: 180px;
+    max-height: 320px;
+    display:inline-block;
+    margin: 5px 0 20px;
+    padding: 5px 0 3px;
+    vertical-align:top;
+    overflow:hidden;
+}
+
+.meta {
+    font-weight:700;
+}
+
+.catalog.subject {
+    color:$accent-color2;
+    font-weight:700;
+}
+
+.teaser {
+    display:block;
+    word-wrap:break-word;
+}
+
+

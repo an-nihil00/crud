@@ -13,7 +13,3 @@
 alias Chan.Repo
 alias Chan.Threads.Thread
 alias Chan.Posts.Post
-
-Repo.insert! %Thread{
-  subject: "test"
-}, prefix: "b"

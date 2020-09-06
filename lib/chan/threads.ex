@@ -7,6 +7,7 @@ defmodule Chan.Threads do
   alias Chan.Repo
 
   alias Chan.Threads.Thread
+  alias Chan.Posts.Post
 
   @doc """
   Returns the list of threads.
@@ -18,7 +19,7 @@ defmodule Chan.Threads do
 
   """
   def list_threads(board_id) do
-    threads = Repo.all((from t in Thread, preload: [:posts]), prefix: board_id)
+    threads = Repo.all((from t in Thread, preload: [posts: ^from(p in Post, order_by: [asc: :id])], order_by: [desc: :updated_at]), prefix: board_id)
   end
 
   @doc """
@@ -51,10 +52,10 @@ defmodule Chan.Threads do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_thread(attrs \\ %{}) do
+  def create_thread(attrs \\ %{}, board_id) do
     %Thread{}
     |> Thread.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: board_id)
   end
 
   @doc """

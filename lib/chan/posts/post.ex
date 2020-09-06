@@ -15,6 +15,6 @@ defmodule Chan.Posts.Post do
   def changeset(post, attrs) do
     post
     |> cast(attrs, [:name, :image, :comment])
-    |> validate_required([:name, :image, :comment])
+    |> validate_required([:name, :comment])
   end
 end

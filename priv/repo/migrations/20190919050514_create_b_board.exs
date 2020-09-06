@@ -29,7 +29,7 @@ defmodule Chan.Repo.Migrations.CreateBBoard do
 
     Chan.Repo.insert!(%Chan.Boards.Board{
       abb: "b",
-      name: "random",
+      name: "Random",
       total_posts: 0
     })
   end

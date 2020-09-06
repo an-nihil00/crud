@@ -1,0 +1,65 @@
+<% return_link = ChanWeb.Router.Helpers.board_path(@conn, :show, @board.abb)%>
+<div id = "navbar">
+  <span class = "navbar"><% [head | tail] = @boards %><a href="/<%= head.abb %>/"><%= head.abb %></a>
+    <%= for b <- tail do %>
+	 / <a href="/<%= b.abb %>/"><%= b.abb %></a><% end %></span>
+	</div>
+<hr>
+<div class = "banner">
+  
+  <h1>/<%= @board.abb %>/ - <%= @board.name %></h1>
+</div>
+<hr class = "abovePostForm">
+<%= form_for @changeset, ChanWeb.Router.Helpers.board_thread_path(@conn, :create, @board.abb), [id: "postForm"], fn f -> %>
+  <table>
+    <tbody>
+      <tr>
+	<th>Name</th>
+	<td>
+	  <%= inputs_for f, :posts, fn i -> %>
+	  <%= text_input i, :name , value: "Anonymous"%>
+	  <% end %>
+	</td>
+      </tr>
+      <tr>
+	<th>Options</th>
+	<td>
+	  <input name = "options" type = "text" maxlength = "40"> 
+	</td>
+      </tr>
+      <tr>
+	<th>Subject</th>
+	<td>
+	  <%= text_input f, :subject %><%= submit "Post" %>
+	</td>
+      </tr>
+      <tr>
+	<th>Comment</th>
+	<td>
+	  <%= inputs_for f, :posts, fn i -> %>
+	  <%= textarea i, :comment %>
+	  <% end %> 
+	</td>
+      </tr>
+      <tr>
+	<th>File</th>
+	<td>
+	  <input type = "file" name = "file">
+	</td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+<hr>
+<a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "#">Update</a><a class = "button" href = "#bottom">Bottom</a>
+<hr>
+<div id = "threads">
+<%= for thread <- @threads do %>
+    <div class = "catalog">
+      <div class = "meta">R:<%= Enum.count(thread.posts)-1%></div>
+      <div class = "subject"><%= thread.subject%></div>
+      <div class = "teaser"><%= Enum.at(thread.posts,0).comment%></div>
+    </div>
+<% end %>
+</div>
+<a id = "bottom">

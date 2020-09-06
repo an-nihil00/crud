@@ -1,0 +1,16 @@
+<% link = ChanWeb.Router.Helpers.board_thread_path(@conn, :show, @board_id, @thread_id)%>
+<p class = "intro">
+  <%= checkbox :delete, :post %>
+  <span class = "subject"><%= @subject%></span>
+  <span class = "name">
+    <%= @op.name%>
+  </span>
+  <span class = "timestamp">
+  <%= @op.inserted_at%> <a href="<%= link%>">No.<%= @op.id%></a>
+  </span>
+  <a class = "button" href = "<%= link%>">Reply</a>
+</p>
+<a id = "<%= @op.id%>"></a>
+  <p><%= @op.comment%></p>
+
+

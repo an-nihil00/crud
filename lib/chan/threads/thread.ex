@@ -13,6 +13,7 @@ defmodule Chan.Threads.Thread do
   def changeset(thread, attrs) do
     thread
     |> cast(attrs, [:subject])
+    |> cast_assoc(:posts)
     |> validate_required([:subject])
   end
 end

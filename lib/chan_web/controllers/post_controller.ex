@@ -3,6 +3,7 @@ defmodule ChanWeb.PostController do
 
   alias Chan.Posts
   alias Chan.Posts.Post
+  alias Chan.Threads
 
   action_fallback ChanWeb.FallbackController
 
@@ -11,12 +12,12 @@ defmodule ChanWeb.PostController do
     render(conn, "index.json", posts: posts)
   end
 
-  def create(conn, %{"post" => post_params}) do
-    with {:ok, %Post{} = post} <- Posts.create_post(post_params) do
+  def create(conn, %{"post" => post_params, "thread_id" => thread_id, "board_id" => board_id}) do
+    thread = Threads.get_thread!(thread_id,board_id)
+    with {:ok, %Post{} = post} <- Posts.create_post(post_params, thread, board_id) do
       conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.post_path(conn, :show, post))
-      |> render("show.json", post: post)
+      |> put_status(302)
+      |> redirect(to: Routes.board_thread_path(conn, :show, board_id,thread_id))
     end
   end
 

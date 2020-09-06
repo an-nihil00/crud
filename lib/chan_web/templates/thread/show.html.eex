@@ -1,0 +1,57 @@
+<% create_link = ChanWeb.Router.Helpers.board_thread_post_path(@conn, :create, @board.abb, @thread.id)%>
+<% return_link = ChanWeb.Router.Helpers.board_path(@conn, :show, @board.abb)%>
+<% catalog_link = ChanWeb.Router.Helpers.board_thread_path(@conn, :index, @board.abb)%>
+
+<div id = "navbar">
+  <span class = "navbar"><% [head | tail] = @boards %><a href="/<%= head.abb %>/"><%= head.abb %></a>
+    <%= for b <- tail do %>
+	 / <a href="/<%= b.abb %>/"><%= b.abb %></a><% end %></span>
+	</div>
+<hr>
+<div class = "banner">
+  
+  <h1>/<%= @board.abb %>/ - <%= @board.name %></h1>
+</div>
+<hr class = "abovePostForm">
+<%= form_for @changeset, create_link, [id: "postForm"], fn f -> %>
+  <table>
+    <tbody>
+      <tr>
+	<th>Name</th>
+	<td>
+	  <%= text_input f, :name , value: "Anonymous"%>
+	</td>
+      </tr>
+      <tr>
+	<th>Options</th>
+	<td>
+	  <input name = "options" type = "text" maxlength = "40"><%= submit "Post" %>
+	</td>
+      </tr>
+      <tr>
+	<th>Comment</th>
+	<td>
+	  <%= textarea f, :comment %>
+	</td>
+      </tr>
+      <tr>
+	<th>File</th>
+	<td>
+	  <input type = "file" name = "file">
+	</td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+<hr>
+<a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" href = "#">Update</a><a class = "button" href = "#bottom">Bottom</a>
+<hr>
+<% [head | tail] = @thread.posts %>
+<div class = "thread">
+<%= render(ChanWeb.ThreadView, "op.html", op: head, thread_id: @thread.id, board_id: @board.abb, subject: @thread.subject, conn: @conn) %>
+<%= for p <- tail do %>
+    <%= render(ChanWeb.ThreadView, "reply.html", post: p, thread_id: @thread.id, board_id: @board.abb, subject: @thread.subject, conn: @conn) %>
+    <% end %>
+</div>
+<a id = "bottom">
+

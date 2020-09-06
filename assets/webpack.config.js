@@ -29,7 +29,7 @@ module.exports = (env, options) => {
       rules: [
         {
           test: /\.js$/,
-          exclude: /node_modules/,
+          exclude: [/node_modules/],
           use: {
             loader: 'babel-loader'
           }
@@ -41,17 +41,6 @@ module.exports = (env, options) => {
             'css-loader',
             'sass-loader',
           ],
-        },
-	{
-          test: /\.elm$/,
-          exclude: [/elm-stuff/, /node_modules/],
-          use: {
-            loader: 'elm-webpack-loader',
-            options: {
-	      debug: options.mode === "development",
-	      pathToElm: 'node_modules/.bin/elm'
-            }
-          }
         }
       ]
     },
