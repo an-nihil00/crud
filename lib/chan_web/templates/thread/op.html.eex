@@ -11,6 +11,6 @@
   <a class = "button" href = "<%= link%>">Reply</a>
 </p>
 <a id = "<%= @op.id%>"></a>
-  <p><%= @op.comment%></p>
+  <p style="white-space: pre-line;"><%= @op.comment %></p>
 
 

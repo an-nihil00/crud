@@ -30,6 +30,7 @@ defmodule ChanWeb.Router do
     get "/", PageController, :index 
     resources "/", BoardController, only: [:show] do
       get "/catalog", ThreadController, :index
+      get "/:page", BoardController, :show
       resources "/thread", ThreadController, only: [:show, :create] do
 	post "/create", PostController, :create
       end

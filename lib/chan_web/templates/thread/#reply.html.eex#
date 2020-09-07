@@ -10,6 +10,6 @@
 	<%= @post.inserted_at%> <a href="#<%= @post.id%>">No.<%= @post.id%></a>
       </span>
     </p>
-    <p class = "replyText"><%= @post.comment %></p>
+    <p class = "replyText"><%= @post.comment  %></p>
   </div>
 </div>

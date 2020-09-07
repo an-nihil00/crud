@@ -1,7 +1,7 @@
 <% create_link = ChanWeb.Router.Helpers.board_thread_post_path(@conn, :create, @board.abb, @thread.id)%>
 <% return_link = ChanWeb.Router.Helpers.board_path(@conn, :show, @board.abb)%>
 <% catalog_link = ChanWeb.Router.Helpers.board_thread_path(@conn, :index, @board.abb)%>
-
+<a id = "top"></a>
 <div class = "banner">
   
   <h1>/<%= @board.abb %>/ - <%= @board.name %></h1>
@@ -47,5 +47,8 @@
     <%= render(ChanWeb.ThreadView, "reply.html", post: p, thread_id: @thread.id, board_id: @board.abb, subject: @thread.subject, conn: @conn) %>
     <% end %>
 </div>
-<a id = "bottom">
+<a id = "bottom"></a>
+<hr>
+<a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" href = "#">Update</a><a class = "button" href = "#top">Top</a>
+<hr>
 

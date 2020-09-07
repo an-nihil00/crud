@@ -3,15 +3,25 @@
 $font-stack:'terminus','terminus (ttf)','inconsolata',monospace;
 $accent-color1:#e60073;
 $accent-color2: #9D5F8D;
+/*$accent-color1:#446655;
+$accent-color2: #32DD72;*/
 $text-color1:white;
 $text-color2:#aaa;
+$background-color:black;
+$reply-background:#333;
+$reply-border:#222;
+$error-color:red;
 
 body {
-    background-color:black;
-    color:white;
+    background-color:$background-color;
+    color:$text-color1;
     font-family:$font-stack;
     font-size:12pt;
     padding: 0px 5px;
+}
+
+#homeBanner {
+    width:80%;
 }
 
 h1 {
@@ -40,7 +50,7 @@ h1 {
 }
 
 .navbar a:link, .navbar a:visited {
-    color:white;
+    color:$text-color1;
 }
 
 .navbar a:hover {
@@ -49,7 +59,7 @@ h1 {
 
 hr {
     border: none;
-    border-top:1px solid white;
+    border-top:1px solid $text-color1;
     height:0px;
 }
 
@@ -67,16 +77,16 @@ hr {
     padding: 1px 5px;
     font-size: 12pt;
     font-weight: 700px;
-    border: 1px solid white;
+    border: 1px solid $text-color1;
 }
 
 #postForm input[type="text"], button, textarea {
     font-size:12pt;
     padding: 1px 5px;
     margin: 0px;
-    border: 1px solid white;
-    background: black;
-    color: white;
+    border: 1px solid $text-color1;
+    background: $background-color;
+    color: $text-color1;
     -webkit-appearance: none;
     -webkit-border-radius: 0;
 }
@@ -161,9 +171,9 @@ textarea {
 }
 
 .reply {
-    background:#333;
+    background:$reply-background;
     padding:6px;
-    border: 1px solid #222;
+    border: 1px solid $reply-border;
     margin:4px 0;
 }
 
@@ -201,7 +211,70 @@ textarea {
 }
 
 .help-block {
-    color:red;
+    color:$error-color;
 }
 
+.home {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+img.emoji {
+   height: 1em;
+   width: 1em;
+   margin: 0 .05em 0 .1em;
+   vertical-align: -0.2em;
+}
+
+.disabled {
+    color:$text-color2;
+}
+
+.disabled::before {
+    content: '[';
+}
+
+.disabled::after {
+    content: ']';
+}
+
+.recent {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    margin: 30px 0;
+    width:700px
+}
+
+.column {
+    width:50%;
+    margin: 0 5px;
+    height:90px;
+}
+
+.stats {
+    width:690px;
+    margin: 0 5px;
+}
+
+.header {
+    width:100%;
+    background-color:$accent-color1;
+    color:$background-color;
+}
+
+h2 {
+    font-weight: 700;
+}
+
+ul {
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+    color: $text-color2;
+}
 

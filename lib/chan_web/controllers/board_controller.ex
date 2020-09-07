@@ -23,11 +23,31 @@ defmodule ChanWeb.BoardController do
     end
   end
 
-  def show(%{private: %{phoenix_format: format}} = conn, %{"id" => id}) do
-    board = Boards.get_board!(id)
-    threads = Threads.list_threads(board.abb)
-    changeset = %Thread{} |> Thread.changeset(%{posts: [%{name: "Anonymous"}]})
-    render(conn, "show.#{format}", board: board, threads: threads, changeset: changeset)
+  def show(conn, %{"id" => id}) do
+    IO.puts "got here"
+    show(conn, %{"board_id" => id, "page" => "1"})
+  end
+
+  def show(%{private: %{phoenix_format: format}} = conn, %{"board_id" => id, "page" => page}) do
+    case Integer.parse(page) do
+      :error ->
+	show(conn, %{"board_id" => id, "page" => "1"})
+      {number, _} ->
+	board = Boards.get_board!(id)
+	pages = Threads.list_threads(board.abb) |>
+	  Enum.chunk_every(10)
+	page_count = max(Enum.count(pages),1)
+	number = min(number,page_count)
+	threads = case pages do
+		    [] ->
+		      []
+		    [ _ | _ ] ->
+		      Enum.at(pages,number-1)
+		  end
+	changeset = %Thread{} |> Thread.changeset(%{posts: [%{name: "Anonymous"}]})
+	render(conn, "show.#{format}", board: board, page: number, pages: page_count, threads: threads, changeset: changeset)
+    end
+    
   end
 
   def update(conn, %{"id" => id, "board" => board_params}) do

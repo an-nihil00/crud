@@ -7,13 +7,30 @@ defmodule Chan.Posts do
   alias Chan.Repo
 
   alias Chan.Posts.Post
+  alias Chan.Boards
 
   @doc """
-  Returns the list of posts.
+  Returns the list of all posts.
 
   ## Examples
 
       iex> list_posts()
+      [%Post{}, ...]
+
+  """
+  def list_posts do
+    Boards.list_boards() |>
+      Enum.map(fn b -> b.abb end) |>
+      Enum.flat_map(fn b -> list_posts(b) end) |>
+      Enum.sort_by(fn p -> p.inserted_at end)
+  end
+  
+  @doc """
+  Returns the list of posts for a given board.
+
+  ## Examples
+
+      iex> list_posts("b")
       [%Post{}, ...]
 
   """

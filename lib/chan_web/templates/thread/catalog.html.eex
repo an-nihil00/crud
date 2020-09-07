@@ -56,4 +56,4 @@
     </div>
 <% end %>
 </div>
-<a id = "bottom">
+<a id = "bottom"></a>

@@ -17,12 +17,18 @@ defmodule ChanWeb.ThreadController do
     render(conn, "catalog.html", board: board, threads: threads, changeset: changeset)
   end
 
-  def create(conn, %{"thread" => thread_params, "board_id" => board_id}) do
+  def create(conn, %{"thread" => thread_params, "board_id" => board_id, "options" => options}) do
     case Threads.create_thread(thread_params, board_id) do
       {:ok, thread} ->
-	conn
-	|> put_status(302)
-	|> redirect(to: Routes.board_thread_path(conn, :show, board_id,thread.id))
+	if String.contains? options, "nonoko" do
+	  conn
+	  |> put_status(302)
+	  |> redirect(to: Routes.board_path(conn, :show, board_id))
+	else
+	  conn
+	  |> put_status(302)
+	  |> redirect(to: Routes.board_thread_path(conn, :show, board_id,thread.id))
+	end
       {:error, errors} ->
 	board = Boards.get_board!(board_id)
 	threads = Threads.list_threads(board_id)

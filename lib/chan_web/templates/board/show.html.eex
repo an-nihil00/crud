@@ -4,7 +4,7 @@
   <h1>/<%= @board.abb %>/ - <%= @board.name %></h1>
 </div>
 <hr class = "abovePostForm">
-<%= form_for @changeset, ChanWeb.Router.Helpers.board_thread_path(@conn, :create, @board.abb), [id: "postForm"], fn f -> %>
+<%= form_for @changeset, ChanWeb.Router.Helpers.board_thread_path(@conn, :create, @board.abb), [id: "postForm", autocomplete: "off"], fn f -> %>
   <table>
     <tbody>
       <tr>
@@ -47,8 +47,10 @@
   <% end %>
   <hr>
   <a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" href = "#">Update</a><a class = "button" href = "#bottom">Bottom</a>
-<hr>
+  <hr>
 <%= for thread <- @threads do %>
     <%= render(ChanWeb.ThreadView, "short.html", thread: thread, board_id: @board.abb, conn: @conn) %>
-<% end %>
+    <% end %>
+    <a href = "bottom"></a>
+    <%= render("footer.html", page: @page, pages: @pages, board_id: @board.abb, conn: @conn) %>
 
