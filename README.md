@@ -17,3 +17,7 @@ This is designed to be run with nix (since thats what i'm developing on). It sho
 - shortcodes for emojis
 - tripcodes
 - (you)
+
+## Attributions
+
+This project uses [Twemoji](https://twemoji.twitter.com/)
