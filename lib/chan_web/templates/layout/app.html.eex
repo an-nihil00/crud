@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
+    <% boards = Chan.Boards.list_boards() %>
+    <div id = "navbar">
+      <span class = "navbar"><% [head | tail] = boards %><a href="/<%= head.abb %>/"><%= head.abb %></a>
+	<%= for b <- tail do %>
+	    / <a href="/<%= b.abb %>/"><%= b.abb %></a><% end %></span>
+	    </div>
+    <hr>
     <%= @inner_content %>
   </body>
 </html>

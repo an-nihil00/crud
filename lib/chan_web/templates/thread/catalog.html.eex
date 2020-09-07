@@ -1,10 +1,4 @@
 <% return_link = ChanWeb.Router.Helpers.board_path(@conn, :show, @board.abb)%>
-<div id = "navbar">
-  <span class = "navbar"><% [head | tail] = @boards %><a href="/<%= head.abb %>/"><%= head.abb %></a>
-    <%= for b <- tail do %>
-	 / <a href="/<%= b.abb %>/"><%= b.abb %></a><% end %></span>
-	</div>
-<hr>
 <div class = "banner">
   
   <h1>/<%= @board.abb %>/ - <%= @board.name %></h1>
@@ -17,7 +11,7 @@
 	<th>Name</th>
 	<td>
 	  <%= inputs_for f, :posts, fn i -> %>
-	  <%= text_input i, :name , value: "Anonymous"%>
+	  <%= text_input i, :name %>
 	  <% end %>
 	</td>
       </tr>

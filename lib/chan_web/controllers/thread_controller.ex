@@ -12,26 +12,29 @@ defmodule ChanWeb.ThreadController do
 
   def index(conn, %{"board_id" => board_id}) do
     board = Boards.get_board!(board_id)
-    boards = Boards.list_boards()
     threads = Threads.list_threads(board_id)
-    changeset = %Thread{} |> Thread.changeset(%{posts: [%{}]})
-    render(conn, "catalog.html", board: board, threads: threads, boards: boards, changeset: changeset)
+    changeset = %Thread{} |> Thread.changeset(%{posts: [%{name: "Anonymous"}]})
+    render(conn, "catalog.html", board: board, threads: threads, changeset: changeset)
   end
 
   def create(conn, %{"thread" => thread_params, "board_id" => board_id}) do
-    with {:ok, %Thread{} = thread} <- Threads.create_thread(thread_params, board_id) do
-      conn
-      |> put_status(302)
-      |> redirect(to: Routes.board_thread_path(conn, :show, board_id,thread.id))
+    case Threads.create_thread(thread_params, board_id) do
+      {:ok, thread} ->
+	conn
+	|> put_status(302)
+	|> redirect(to: Routes.board_thread_path(conn, :show, board_id,thread.id))
+      {:error, errors} ->
+	board = Boards.get_board!(board_id)
+	threads = Threads.list_threads(board_id)
+	render(conn, ChanWeb.BoardView, "show.html", board: board, threads: threads, changeset: errors)
     end
   end
 
   def show(%{private: %{phoenix_format: format}} = conn, %{"id" => id, "board_id" => board_id}) do
     board = Boards.get_board!(board_id)
-    boards = Boards.list_boards()
     thread = Threads.get_thread!(id,board_id)
-    changeset = %Post{} |> Post.changeset(%{})
-    render(conn, "show.#{format}", board: board, boards: boards, thread: thread, changeset: changeset)
+    changeset = %Post{} |> Post.changeset(%{name: "Anonymous"})
+    render(conn, "show.#{format}", board: board, thread: thread, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "thread" => thread_params}) do

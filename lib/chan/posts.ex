@@ -51,9 +51,12 @@ defmodule Chan.Posts do
   """
   def create_post(attrs \\ %{}, thread, board_id) do
     with post <- Post.changeset(%Post{}, attrs) do
-      IO.inspect post
-      Ecto.build_assoc(thread, :posts, post.changes)
-      |> Repo.insert(prefix: board_id)
+      if post.valid? do
+	Ecto.build_assoc(thread, :posts, post.changes)
+	|> Repo.insert(prefix: board_id)
+      else
+	Repo.insert(post)
+      end
     end
   end
 

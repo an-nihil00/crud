@@ -2,12 +2,6 @@
 <% return_link = ChanWeb.Router.Helpers.board_path(@conn, :show, @board.abb)%>
 <% catalog_link = ChanWeb.Router.Helpers.board_thread_path(@conn, :index, @board.abb)%>
 
-<div id = "navbar">
-  <span class = "navbar"><% [head | tail] = @boards %><a href="/<%= head.abb %>/"><%= head.abb %></a>
-    <%= for b <- tail do %>
-	 / <a href="/<%= b.abb %>/"><%= b.abb %></a><% end %></span>
-	</div>
-<hr>
 <div class = "banner">
   
   <h1>/<%= @board.abb %>/ - <%= @board.name %></h1>

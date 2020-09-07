@@ -26,9 +26,8 @@ defmodule ChanWeb.BoardController do
   def show(%{private: %{phoenix_format: format}} = conn, %{"id" => id}) do
     board = Boards.get_board!(id)
     threads = Threads.list_threads(board.abb)
-    boards = Boards.list_boards()
-    changeset = %Thread{} |> Thread.changeset(%{posts: [%{}]})
-    render(conn, "show.#{format}", board: board, threads: threads, boards: boards, changeset: changeset)
+    changeset = %Thread{} |> Thread.changeset(%{posts: [%{name: "Anonymous"}]})
+    render(conn, "show.#{format}", board: board, threads: threads, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "board" => board_params}) do
