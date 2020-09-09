@@ -10,8 +10,6 @@ This is designed to be run with nix (since thats what i'm developing on). It sho
 
 - file uploads
 - post deletion/moderation
-- make posts bump threads
-- sage
 - replys to other posts
 - text formatting
 - shortcodes for emojis

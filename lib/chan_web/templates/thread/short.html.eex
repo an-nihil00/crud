@@ -1,7 +1,11 @@
 <% [head | tail] = @thread.posts %>
+<% link = ChanWeb.Router.Helpers.board_thread_path(@conn, :show, @board_id, @thread.id)%>
 <div class = "thread">
   <%= render(ChanWeb.ThreadView, "op.html", op: head, thread_id: @thread.id, board_id: @board_id, subject: @thread.subject, conn: @conn) %>
-  <%= for p <- tail do %>
+  <%= if Enum.count(tail) > 5 do %>
+  <span class = "summary" ><%= Enum.count(tail)-5 %> replies omitted. <a href = "<%= link%>" class = "button" >Click here</a> to view.</span>
+  <% end %>
+  <%= for p <- Enum.take(tail,-5) do %>
     <%= render(ChanWeb.ThreadView, "reply.html", post: p, thread_id: @thread.id, board_id: @board_id, conn: @conn) %>
     <% end %>
   </div>

@@ -38,7 +38,7 @@
   </table>
 <% end %>
 <hr>
-<a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" href = "#">Update</a><a class = "button" href = "#bottom">Bottom</a>
+<a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" onclick = "location.reload()">Update</a><a class = "button" href = "#bottom">Bottom</a>
 <hr>
 <% [head | tail] = @thread.posts %>
 <div class = "thread">
@@ -49,6 +49,6 @@
 </div>
 <a id = "bottom"></a>
 <hr>
-<a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" href = "#">Update</a><a class = "button" href = "#top">Top</a>
+<a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" onclick = "location.reload()">Update</a><a class = "button" href = "#top">Top</a>
 <hr>
 
