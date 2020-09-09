@@ -18,6 +18,8 @@ body {
     font-family:$font-stack;
     font-size:12pt;
     padding: 0px 5px;
+    /*width:80%;
+    margin:0 auto;*/
 }
 
 #homeBanner {
@@ -175,10 +177,11 @@ textarea {
     padding:6px;
     border: 1px solid $reply-border;
     margin:4px 0;
+    max-width:94%;
 }
 
 .replyText {
-    margin: .06em 1.8em;
+    margin: .06em 0 .06em 1.8em;
     white-space: pre-line;
 }
 
@@ -251,7 +254,6 @@ img.emoji {
 .column {
     width:50%;
     margin: 0 5px;
-    height:90px;
 }
 
 .stats {

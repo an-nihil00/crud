@@ -12,12 +12,18 @@ defmodule ChanWeb.PostController do
     render(conn, "index.json", posts: posts)
   end
 
-  def create(conn, %{"post" => post_params, "thread_id" => thread_id, "board_id" => board_id}) do
+  def create(conn, %{"post" => post_params, "thread_id" => thread_id, "board_id" => board_id, "options" => options}) do
     thread = Threads.get_thread!(thread_id,board_id)
-    with {:ok, %Post{} = post} <- Posts.create_post(post_params, thread, board_id) do
-      conn
-      |> put_status(302)
-      |> redirect(to: Routes.board_thread_path(conn, :show, board_id,thread_id))
+    with {:ok, %Post{} = post} <- Posts.create_post(post_params, thread, board_id, String.contains?(options, "sage")) do
+      if String.contains? options, "nonoko" do
+	conn
+	|> put_status(302)
+	|> redirect(to: Routes.board_path(conn, :show, board_id))
+      else
+	conn
+	|> put_status(302)
+	|> redirect(to: Routes.board_thread_path(conn, :show, board_id,thread.id))
+      end
     end
   end
 

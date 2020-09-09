@@ -4,7 +4,7 @@
   <h1>/<%= @board.abb %>/ - <%= @board.name %></h1>
 </div>
 <hr class = "abovePostForm">
-<%= form_for @changeset, ChanWeb.Router.Helpers.board_thread_path(@conn, :create, @board.abb), [id: "postForm"], fn f -> %>
+<%= form_for @changeset, ChanWeb.Router.Helpers.board_thread_path(@conn, :create, @board.abb), [id: "postForm", autocomplete: "off"], fn f -> %>
   <table>
     <tbody>
       <tr>

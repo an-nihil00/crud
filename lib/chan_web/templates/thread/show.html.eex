@@ -7,13 +7,13 @@
   <h1>/<%= @board.abb %>/ - <%= @board.name %></h1>
 </div>
 <hr class = "abovePostForm">
-<%= form_for @changeset, create_link, [id: "postForm"], fn f -> %>
+<%= form_for @changeset, create_link, [id: "postForm", autocomplete: "off"], fn f -> %>
   <table>
     <tbody>
       <tr>
 	<th>Name</th>
 	<td>
-	  <%= text_input f, :name , value: "Anonymous"%>
+	  <%= text_input f, :name %>
 	</td>
       </tr>
       <tr>

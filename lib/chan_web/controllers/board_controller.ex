@@ -44,7 +44,7 @@ defmodule ChanWeb.BoardController do
 		    [ _ | _ ] ->
 		      Enum.at(pages,number-1)
 		  end
-	changeset = %Thread{} |> Thread.changeset(%{posts: [%{name: "Anonymous"}]})
+	changeset = %Thread{} |> Thread.changeset(%{posts: [%{name: ""}]})
 	render(conn, "show.#{format}", board: board, page: number, pages: page_count, threads: threads, changeset: changeset)
     end
     

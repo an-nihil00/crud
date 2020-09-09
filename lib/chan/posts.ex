@@ -66,9 +66,12 @@ defmodule Chan.Posts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_post(attrs \\ %{}, thread, board_id) do
+  def create_post(attrs \\ %{}, thread, board_id, sage? \\ false) do
     with post <- Post.changeset(%Post{}, attrs) do
       if post.valid? do
+	if not sage? do
+	  Repo.update(Ecto.Changeset.change(thread), force: true)
+	end
 	Ecto.build_assoc(thread, :posts, post.changes)
 	|> Repo.insert(prefix: board_id)
       else

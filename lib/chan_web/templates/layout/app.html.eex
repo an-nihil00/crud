@@ -9,16 +9,18 @@
     <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <% boards = Chan.Boards.list_boards() %>
-    <% [head | tail] = boards%>
-    <div id = "navbar">
-      <span class = "navbar"><a href="/<%= head.abb %>/"><%= head.abb %></a>
-	<%= for b <- tail do %>
-	    / <a href="/<%= b.abb %>/"><%= b.abb %></a><% end %></span><span class= "navbar"><a href = "https://github.com/an-nihil00/chan/">github</a> / <a href = "https://twitter.com/Anarcho_Juche">twitter</a></span>
-	    </div>
-    <hr>
-    <%= @inner_content %>
-    <div class = "footer">
+    <div class = "container">
+      <% boards = Chan.Boards.list_boards() %>
+      <% [head | tail] = boards%>
+      <div id = "navbar">
+	<span class = "navbar"><a href="/<%= head.abb %>/"><%= head.abb %></a>
+	  <%= for b <- tail do %>
+	      / <a href="/<%= b.abb %>/"><%= b.abb %></a><% end %></span><span class= "navbar"><a href = "https://github.com/an-nihil00/chan/">github</a> / <a href = "https://twitter.com/Anarcho_Juche">twitter</a></span>
+	      </div>
+      <hr>
+      <%= @inner_content %>
+      <div class = "footer">
+      </div>
     </div>
     <script type="text/javascript">
       twemoji.parse(document.body);

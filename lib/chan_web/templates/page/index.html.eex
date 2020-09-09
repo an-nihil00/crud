@@ -20,7 +20,12 @@
 		  nil ->
 	      "(no comment)"
 	      comment ->
-	comment end%>
+	if (String.length comment) > 25 do
+	"#{String.slice comment, 0, 25}..."
+	else
+	comment
+	end
+	end%>
 </li>
 <% end %>
 </ul>

@@ -5,7 +5,7 @@ defmodule Chan.Posts.Post do
   schema "posts" do
     field :comment, :string
     field :image, :string
-    field :name, :string
+    field :name, :string, default: "Anonymous"
     belongs_to :thread, Chan.Threads.Thread
 
     timestamps()
