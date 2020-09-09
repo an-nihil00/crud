@@ -82,7 +82,7 @@ hr {
     border: 1px solid $text-color1;
 }
 
-#postForm input[type="text"], button, textarea {
+input[type="text"], input[type="password"], button, textarea {
     font-size:12pt;
     padding: 1px 5px;
     margin: 0px;
@@ -97,17 +97,22 @@ hr {
     width: 244px;
 }
 
+input[type="password"] {
+    font-family: sans-serif;
+    font-size:10pt;
+}
+
 textarea {
     font-family:$font-stack;
     width: 292px;
     height: 76px;
 }
 
-#postForm button {
+button {
     margin-left:4px;
 }
 
-#postForm button:hover {
+button:hover {
     color:$accent-color1;
 }
 
@@ -282,4 +287,9 @@ ul li {
 
 .summary {
     color: $text-color2;
+}
+
+.deleteForm {
+    float: right;
+    display: flex;
 }

@@ -48,9 +48,11 @@
   <hr>
   <a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" onclick = "location.reload()">Update</a><a class = "button" href = "#bottom">Bottom</a>
   <hr>
+  <%= form_for :delete, ChanWeb.Router.Helpers.board_post_path(@conn, :delete, @board.abb), fn f -> %>
 <%= for thread <- @threads do %>
-    <%= render(ChanWeb.ThreadView, "short.html", thread: thread, board_id: @board.abb, conn: @conn) %>
+    <%= render(ChanWeb.ThreadView, "short.html", thread: thread, board_id: @board.abb, f: f, conn: @conn) %>
     <% end %>
     <a href = "bottom"></a>
     <%= render("footer.html", page: @page, pages: @pages, board_id: @board.abb, conn: @conn) %>
+    <%end%>
 

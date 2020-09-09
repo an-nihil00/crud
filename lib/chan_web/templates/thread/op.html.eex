@@ -1,6 +1,8 @@
 <% link = ChanWeb.Router.Helpers.board_thread_path(@conn, :show, @board_id, @thread_id)%>
 <p class = "intro">
-  <%= checkbox :delete, :post %>
+  <%= inputs_for @f, :threads, fn i -> %>
+  <%= checkbox i, String.to_atom("#{@thread_id}") %>
+  <%end%>
   <span class = "subject"><%= @subject%></span>
   <span class = "name">
     <%= @op.name%>

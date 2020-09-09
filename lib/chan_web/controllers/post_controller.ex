@@ -40,11 +40,8 @@ defmodule ChanWeb.PostController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    post = Posts.get_post!(id)
-
-    with {:ok, %Post{}} <- Posts.delete_post(post) do
-      send_resp(conn, :no_content, "")
-    end
+  def delete(conn, %{"delete" => delete}) do
+    IO.inspect(delete)
+    send_resp(conn, :no_content, "")
   end
 end

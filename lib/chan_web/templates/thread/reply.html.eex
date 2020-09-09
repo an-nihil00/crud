@@ -4,12 +4,14 @@
   <div class = "sideArrows">>></div>
   <div class = "reply">
     <p class = "intro">
-      <%= checkbox :delete, :post %>
+      <%= inputs_for @f, :posts, fn i -> %>
+      <%= checkbox i, String.to_atom("#{@post.id}") %>
+      <% end %>
       <span class = "name"><%= @post.name%></span>
       <span class = "timestamp">
 	<%= @post.inserted_at%> <a href="#<%= @post.id%>">No.<%= @post.id%></a>
       </span>
     </p>
-    <p class = "replyText"><%= @post.comment %></p>
+    <p class = "replyText"><%= @post.comment  %></p>
   </div>
 </div>
