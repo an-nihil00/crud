@@ -48,12 +48,12 @@ defmodule ChanWeb.PostController do
     thread_ids = threads
     |> Map.keys
     |> Enum.filter(fn t -> threads[t]=="true" end)
-    |> Enum.map(fn t -> String.to_integer t end) 
+    |> Enum.map(&String.to_integer/1) 
 
     post_ids = posts
     |> Map.keys
     |> Enum.filter(fn t -> posts[t]=="true" end)
-    |> Enum.map(fn t -> String.to_integer t end)
+    |> Enum.map(&String.to_integer/1)
     
     for id <- thread_ids do
       thread = Threads.get_thread!(id, board_id)

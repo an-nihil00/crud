@@ -1,4 +1,3 @@
-<% link = ChanWeb.Router.Helpers.board_thread_path(@conn, :show, @board_id, @thread_id)%>
 <div class = "postContainer">
   <a id="<%= @post.id%>"></a>
   <div class = "sideArrows">>></div>
@@ -12,6 +11,6 @@
 	<%= @post.inserted_at%> <a href="#<%= @post.id%>">No.<%= @post.id%></a>
       </span>
     </p>
-    <p class = "replyText"><%= @post.comment  %></p>
+    <p class = "replyText"><%= ChanWeb.Formatting.as_html @post.comment %></p>
   </div>
 </div>

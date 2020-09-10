@@ -3,6 +3,7 @@
 $font-stack:'terminus','terminus (ttf)','inconsolata',monospace;
 $accent-color1:#e60073;
 $accent-color2: #9D5F8D;
+$green-text: #B8D962;
 /*$accent-color1:#446655;
 $accent-color2: #32DD72;*/
 $text-color1:white;
@@ -77,7 +78,6 @@ hr {
 th {
     text-align: left;
     padding: 1px 5px;
-    font-size: 12pt;
     font-weight: 700px;
     border: 1px solid $text-color1;
 }
@@ -300,4 +300,12 @@ ul li {
 
 #postForm #password {
     width: 122px;
+}
+
+.greenText {
+    color: $green-text;
+}
+
+.redText {
+    color: #c00;
 }

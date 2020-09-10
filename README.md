@@ -15,7 +15,6 @@ This is designed to be run with nix (since thats what i'm developing on). It sho
 - file uploads
 - moderation
 - replys to other posts
-- text formatting
 - shortcodes for emojis
 - tripcodes
 - (you)

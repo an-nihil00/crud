@@ -13,6 +13,6 @@
   <a class = "button" href = "<%= link%>">Reply</a>
 </p>
 <a id = "<%= @op.id%>"></a>
-  <p style="white-space: pre-line;"><%= @op.comment %></p>
+  <p style="white-space: pre-line;"><%= ChanWeb.Formatting.as_html @op.comment %></p>
 
 
