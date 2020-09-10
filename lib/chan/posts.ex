@@ -52,7 +52,9 @@ defmodule Chan.Posts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id)
+  def get_post!(id, board_id) do
+    Repo.get!(Post, id, prefix: board_id)
+  end
 
   @doc """
   Creates a post.
@@ -110,8 +112,12 @@ defmodule Chan.Posts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_post(%Post{} = post) do
-    Repo.delete(post)
+  def delete_post(%Post{} = post, board_id) do
+    Repo.delete(post, prefix: board_id)
+  end
+
+  def delete_post_id(id, board_id) do
+    delete_post(get_post!(id, board_id), board_id)
   end
 
   @doc """

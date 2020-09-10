@@ -15,7 +15,8 @@ defmodule Chan.Repo.Migrations.CreateHrtBoard do
       add :name, :string
       add :image, :string
       add :comment, :text
-      add :thread_id, references(:threads)
+      add :password_hash, :string
+      add :thread_id, references(:threads, on_delete: :delete_all)
 
       timestamps()
     end

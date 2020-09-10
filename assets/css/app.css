@@ -74,12 +74,16 @@ hr {
     width: 468px;
 }
 
-#postForm th {
+th {
     text-align: left;
     padding: 1px 5px;
     font-size: 12pt;
     font-weight: 700px;
     border: 1px solid $text-color1;
+}
+
+td {
+    padding: 0;
 }
 
 input[type="text"], input[type="password"], button, textarea {
@@ -292,4 +296,8 @@ ul li {
 .deleteForm {
     float: right;
     display: flex;
+}
+
+#postForm #password {
+    width: 122px;
 }

@@ -42,6 +42,14 @@
 	  <input type = "file" name = "file">
 	</td>
       </tr>
+      <tr>
+	<th>Password</th>
+	<td>
+	  <%= inputs_for f, :posts, fn i -> %>
+	  <%= text_input i, :password, [id: "password", size: 12, maxlength: 18]%>
+	  <% end %><span class="summary">(for post deletion)</span>
+	</td>
+      </tr>
     </tbody>
   </table>
   <% end %>
@@ -55,4 +63,19 @@
     <a href = "bottom"></a>
     <%= render("footer.html", page: @page, pages: @pages, board_id: @board.abb, conn: @conn) %>
     <%end%>
+    <script type="text/javascript">
+      function choose(choices) {
+	  var index = Math.floor(Math.random() * choices.length);
+	  return choices[index];
+      }
+      validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#@%$!^&*"
+      function random_string(length) {
+	  if (length == 0) {
+	      return ""
+	  } else {
+	      return choose(validChars)+random_string(length-1)
+	  }
+      }
+      document.getElementById("password").value = random_string(8)
+    </script>
 

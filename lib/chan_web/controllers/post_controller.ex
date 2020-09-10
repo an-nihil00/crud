@@ -4,6 +4,7 @@ defmodule ChanWeb.PostController do
   alias Chan.Posts
   alias Chan.Posts.Post
   alias Chan.Threads
+  alias Chan.Posts.Passwords
 
   action_fallback ChanWeb.FallbackController
 
@@ -14,7 +15,7 @@ defmodule ChanWeb.PostController do
 
   def create(conn, %{"post" => post_params, "thread_id" => thread_id, "board_id" => board_id, "options" => options}) do
     thread = Threads.get_thread!(thread_id,board_id)
-    with {:ok, %Post{} = post} <- Posts.create_post(post_params, thread, board_id, String.contains?(options, "sage")) do
+    with {:ok, %Post{}} <- Posts.create_post(post_params, thread, board_id, String.contains?(options, "sage")) do
       if String.contains? options, "nonoko" do
 	conn
 	|> put_status(302)
@@ -40,8 +41,42 @@ defmodule ChanWeb.PostController do
     end
   end
 
-  def delete(conn, %{"delete" => delete}) do
-    IO.inspect(delete)
-    send_resp(conn, :no_content, "")
+  
+  
+  def delete(conn, %{"board_id" => board_id, "delete" => delete}) do
+    %{"threads" => threads, "posts" => posts, "password" => password} = Map.merge(%{"threads" => %{}, "posts" => %{}},delete)
+    thread_ids = threads
+    |> Map.keys
+    |> Enum.filter(fn t -> threads[t]=="true" end)
+    |> Enum.map(fn t -> String.to_integer t end) 
+
+    post_ids = posts
+    |> Map.keys
+    |> Enum.filter(fn t -> posts[t]=="true" end)
+    |> Enum.map(fn t -> String.to_integer t end)
+    
+    for id <- thread_ids do
+      thread = Threads.get_thread!(id, board_id)
+      op = Enum.at(thread.posts,0)
+      case Passwords.validate_password(op, password) do
+	{:ok, _ } ->
+	  Threads.delete_thread(thread, board_id)
+	{:error, errors} ->
+	  IO.inspect(errors)
+      end
+    end
+    for id <- post_ids do
+      post = Posts.get_post!(id, board_id)
+      case Passwords.validate_password(post, password) do
+	{:ok, _ } ->
+	  Posts.delete_post(post, board_id)
+	{:error, errors} ->
+	  IO.inspect(errors)
+      end
+    end
+
+    conn
+    |> put_status(302)
+    |> redirect(to: Routes.board_path(conn, :show, board_id))
   end
 end

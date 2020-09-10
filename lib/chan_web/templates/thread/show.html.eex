@@ -34,21 +34,48 @@
 	  <input type = "file" name = "file">
 	</td>
       </tr>
+      <tr>
+	<th>Password</th>
+	<td>
+	  <%= text_input f, :password, [id: "password", maxlength: 18] %>
+	</td>
+      </tr>
     </tbody>
   </table>
 <% end %>
 <hr>
 <a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" onclick = "location.reload()">Update</a><a class = "button" href = "#bottom">Bottom</a>
 <hr>
+<%= form_for :delete, ChanWeb.Router.Helpers.board_post_path(@conn, :delete, @board.abb), fn f -> %>
 <% [head | tail] = @thread.posts %>
 <div class = "thread">
-<%= render(ChanWeb.ThreadView, "op.html", op: head, thread_id: @thread.id, board_id: @board.abb, subject: @thread.subject, conn: @conn) %>
+<%= render(ChanWeb.ThreadView, "op.html", op: head, thread_id: @thread.id, board_id: @board.abb, subject: @thread.subject, f: f, conn: @conn) %>
 <%= for p <- tail do %>
-    <%= render(ChanWeb.ThreadView, "reply.html", post: p, thread_id: @thread.id, board_id: @board.abb, subject: @thread.subject, conn: @conn) %>
+    <%= render(ChanWeb.ThreadView, "reply.html", post: p, thread_id: @thread.id, board_id: @board.abb, subject: @thread.subject, f: f, conn: @conn) %>
     <% end %>
 </div>
 <a id = "bottom"></a>
 <hr>
 <a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" onclick = "location.reload()">Update</a><a class = "button" href = "#top">Top</a>
+<div class = "deleteForm">
+  <%= password_input :delete, :password, [placeholder: "Password"] %>
+  <%= submit "Delete" %>
+</div>
+<%end%>
+<script type="text/javascript">
+  function choose(choices) {
+      var index = Math.floor(Math.random() * choices.length);
+      return choices[index];
+  }
+  validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#@%$!^&*"
+  function random_string(length) {
+      if (length == 0) {
+	  return ""
+      } else {
+	  return choose(validChars)+random_string(length-1)
+      }
+  }
+  document.getElementById("password").value = random_string(8)
+</script>
 <hr>
 
