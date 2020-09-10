@@ -1,5 +1,8 @@
 use Mix.Config
 
+config :chan,
+  uploads_directory: "/home/emmy/uploads_dev"
+
 # Configure your database
 config :chan, Chan.Repo,
   username: "postgres",

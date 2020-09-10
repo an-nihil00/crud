@@ -4,11 +4,16 @@ defmodule ChanWeb.Formatting do
   alias Phoenix.HTML
   
   def as_html comment do
-    comment
-    |> Parser.parse
-    |> Enum.map(&parse_to_html/1)
-    |> Enum.join("\n")
-    |> HTML.raw
+    case comment do
+      nil ->
+	comment
+      _ ->
+	comment
+	|> Parser.parse
+	|> Enum.map(&parse_to_html/1)
+	|> Enum.join("\n")
+	|> HTML.raw
+    end
   end
   
   defp parse_to_html parse do

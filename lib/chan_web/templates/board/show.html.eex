@@ -4,7 +4,7 @@
   <h1>/<%= @board.abb %>/ - <%= @board.name %></h1>
 </div>
 <hr class = "abovePostForm">
-<%= form_for @changeset, ChanWeb.Router.Helpers.board_thread_path(@conn, :create, @board.abb), [id: "postForm", autocomplete: "off"], fn f -> %>
+<%= form_for @changeset, ChanWeb.Router.Helpers.board_thread_path(@conn, :create, @board.abb), [id: "postForm", autocomplete: "off", multipart: true], fn f -> %>
   <table>
     <tbody>
       <tr>
@@ -39,7 +39,7 @@
       <tr>
 	<th>File</th>
 	<td>
-	  <input type = "file" name = "file">
+	  <input type = "file" name = "thread[file]" accept = ".pdf,image/*">
 	</td>
       </tr>
       <tr>
@@ -76,6 +76,6 @@
 	      return choose(validChars)+random_string(length-1)
 	  }
       }
-      document.getElementById("password").value = random_string(8)
+      document.getElementById("password").value = "aaaa"
     </script>
 

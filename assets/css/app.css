@@ -120,6 +120,10 @@ button:hover {
     color:$accent-color1;
 }
 
+.thread {
+    overflow: hidden;
+}
+
 .intro {
     margin:0;
 }
@@ -308,4 +312,18 @@ ul li {
 
 .redText {
     color: #c00;
+}
+
+.opImageThumb {
+    max-width: 250px;
+    max-height: 250px;
+    float: left;
+    margin: 3px 20px 5px;
+}
+
+.imageThumb {
+    max-width: 125px;
+    max-height: 125px;
+    float: left;
+    margin: 3px 20px 5px;
 }

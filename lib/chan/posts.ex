@@ -7,6 +7,7 @@ defmodule Chan.Posts do
   alias Chan.Repo
 
   alias Chan.Posts.Post
+  alias Chan.Posts.Upload
   alias Chan.Boards
 
   @doc """
@@ -131,5 +132,36 @@ defmodule Chan.Posts do
   """
   def change_post(%Post{} = post) do
     Post.changeset(post, %{})
+  end
+
+  def create_upload_from_plug_upload(%Plug.Upload{
+    filename: filename,
+    path: tmp_path,
+    content_type: content_type
+}) do
+    hash = 
+      File.stream!(tmp_path, [], 2048) 
+      |> Upload.sha256()
+    with {:ok, %File.Stat{size: size}} <- File.stat(tmp_path),  
+    {:ok, upload} <- 
+    %Upload{} |> Upload.changeset(%{
+	  filename: filename, content_type: content_type,
+	  hash: hash, size: size }) 
+	  |> Repo.insert(),
+	  
+      :ok <- File.cp(
+	tmp_path,
+	Upload.local_path(upload.id, filename)
+      )
+
+	    do
+	    
+	    {:ok, upload}
+	    
+	    else
+
+	      {:error, reason}=error -> error
+
+	  end
   end
 end

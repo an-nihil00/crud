@@ -13,9 +13,9 @@
       <% boards = Chan.Boards.list_boards() %>
       <% [head | tail] = boards%>
       <div id = "navbar">
-	<span class = "navbar"><a href="/<%= head.abb %>/"><%= head.abb %></a>
+	<span class = "navbar"><a href="/boards/<%= head.abb %>/"><%= head.abb %></a>
 	  <%= for b <- tail do %>
-	      / <a href="/<%= b.abb %>/"><%= b.abb %></a><% end %></span><span class= "navbar"><a href = "https://github.com/an-nihil00/chan/">github</a> / <a href = "https://twitter.com/Anarcho_Juche">twitter</a></span>
+	      / <a href="/boards/<%= b.abb %>/"><%= b.abb %></a><% end %></span><span class= "navbar"><a href = "https://github.com/an-nihil00/chan/">github</a> / <a href = "https://twitter.com/Anarcho_Juche">twitter</a></span>
 	      </div>
       <hr>
       <%= @inner_content %>

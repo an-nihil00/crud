@@ -31,8 +31,16 @@ defmodule ChanWeb.ThreadController do
 	end
       {:error, errors} ->
 	board = Boards.get_board!(board_id)
-	threads = Threads.list_threads(board_id)
-	render(conn, ChanWeb.BoardView, "show.html", board: board, threads: threads, changeset: errors)
+	pages = Threads.list_threads(board_id) |>
+	  Enum.chunk_every(10)
+	page_count = max(Enum.count(pages),1)
+	threads = case pages do
+		    [] ->
+		      []
+		    [ _ | _ ] ->
+		      Enum.at(pages,0)
+		  end
+	render(conn, ChanWeb.BoardView, "show.html", board: board, threads: threads, page: 1, pages: page_count, changeset: errors)
     end
   end
 
@@ -41,21 +49,5 @@ defmodule ChanWeb.ThreadController do
     thread = Threads.get_thread!(id,board_id)
     changeset = %Post{} |> Post.changeset(%{name: ""})
     render(conn, "show.#{format}", board: board, thread: thread, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "thread" => thread_params}) do
-    thread = Threads.get_thread!(id)
-
-    with {:ok, %Thread{} = thread} <- Threads.update_thread(thread, thread_params) do
-      render(conn, "show.json", thread: thread)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    thread = Threads.get_thread!(id)
-
-    with {:ok, %Thread{}} <- Threads.delete_thread(thread) do
-      send_resp(conn, :no_content, "")
-    end
   end
 end

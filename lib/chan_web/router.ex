@@ -27,8 +27,9 @@ defmodule ChanWeb.Router do
   scope "/", ChanWeb do
     pipe_through :browser
 
-    get "/", PageController, :index 
-    resources "/", BoardController, only: [:show] do
+    get "/", PageController, :index
+    get "/uploads/:id", UploadController, :show
+    resources "/boards", BoardController, only: [:show] do
       get "/catalog", ThreadController, :index
       get "/:page", BoardController, :show
       post "/delete", PostController, :delete
