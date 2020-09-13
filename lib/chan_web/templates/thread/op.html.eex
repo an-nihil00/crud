@@ -1,6 +1,12 @@
 <% link = ChanWeb.Router.Helpers.board_thread_path(@conn, :show, @board_id, @thread_id)%>
 <%= if @op.upload != nil do %>
-    <img src=<%=ChanWeb.Router.Helpers.board_upload_path(@conn, :show, @board_id, @op.upload.id)%> class = "opImageThumb">
+<% imageLink = ChanWeb.Router.Helpers.board_upload_path(@conn, :show, @board_id, @op.upload.id)%>
+<div class = "fileText">
+  File:<a href = <%= imageLink%>><%= @op.upload.filename%></a> (<%= Sizeable.filesize(@op.upload.size)%>)
+</div>
+<a class = "imageThumb" href = "#" onclick = "expand(this);return false;">
+  <img src= <%= imageLink%>>
+</a>
     <% end %>
 <p class = "intro">
   <%= inputs_for @f, :threads, fn i -> %>

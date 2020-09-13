@@ -142,7 +142,8 @@ defmodule Chan.Posts do
     hash = 
       File.stream!(tmp_path, [], 2048) 
       |> Upload.sha256()
-    post = get_post! post_id, board_id
+    post =
+      get_post!(post_id, board_id)
     with {:ok, %File.Stat{size: size}} <- File.stat(tmp_path),  
     {:ok, upload} <- 
     Ecto.build_assoc(post, :upload) |> Upload.changeset(%{

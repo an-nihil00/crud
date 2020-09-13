@@ -41,7 +41,7 @@ defmodule ChanWeb.PostController do
 		     "options" => options}) do
     thread = Threads.get_thread!(thread_id,board_id)
     with {:ok, post} <- Posts.create_post(post_params, thread, board_id, String.contains?(options, "sage")) do
-      IO.inspect(post.id)
+      IO.inspect(post_params)
       if String.contains? options, "nonoko" do
 	conn
 	|> put_status(302)

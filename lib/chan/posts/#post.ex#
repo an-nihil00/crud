@@ -21,7 +21,6 @@ defmodule Chan.Posts.Post do
 
   @doc false
   def changeset(post, attrs) do
-    
     post
     |> cast(attrs, [:name, :image, :comment, :password])
     |> cast_assoc(:upload)

@@ -39,7 +39,7 @@
       <tr>
 	<th>File</th>
 	<td>
-	  <input type = "file" name = "file" accept = "image/*">
+	  <input type = "file" name = "file" accept = "image/*"><br><%= error_tag f, :file%>
 	</td>
       </tr>
       <tr>
@@ -76,6 +76,6 @@
 	      return choose(validChars)+random_string(length-1)
 	  }
       }
-      document.getElementById("password").value = "aaaa"
+      document.getElementById("password").value = random_string(8);
     </script>
 

@@ -10,7 +10,9 @@ defmodule ChanWeb.UploadController do
       nil ->
 	text conn, "not found!"
       upload ->
-	send_file conn, 200, Upload.local_path(id, upload.filename)
+	conn
+	|> put_resp_header("Content-Type", upload.content_type)
+	|> send_file(200, Upload.local_path(id, upload.filename))
     end
   end
 end

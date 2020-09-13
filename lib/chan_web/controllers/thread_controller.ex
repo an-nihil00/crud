@@ -37,6 +37,7 @@ defmodule ChanWeb.ThreadController do
 	  end
 	end
       {:error, errors} ->
+	IO.inspect(errors)
 	board = Boards.get_board!(board_id)
 	pages = Threads.list_threads(board_id) |>
 	  Enum.chunk_every(10)
@@ -54,30 +55,29 @@ defmodule ChanWeb.ThreadController do
   def create(conn, %{"thread" => thread_params,
 		     "board_id" => board_id,
 		     "options" => options}) do
-    case Threads.create_thread(thread_params, board_id) do
-      {:ok, thread} ->
-	if String.contains? options, "nonoko" do
-	  conn
-	  |> put_status(302)
-	  |> redirect(to: Routes.board_path(conn, :show, board_id))
-	else
-	  conn
-	  |> put_status(302)
-	  |> redirect(to: Routes.board_thread_path(conn, :show, board_id,thread.id))
-	end
-      {:error, errors} ->
-	board = Boards.get_board!(board_id)
-	pages = Threads.list_threads(board_id) |>
-	  Enum.chunk_every(10)
-	page_count = max(Enum.count(pages),1)
-	threads = case pages do
-		    [] ->
-		      []
-		    [ _ | _ ] ->
-		      Enum.at(pages,0)
-		  end
-	render(conn, ChanWeb.BoardView, "show.html", board: board, threads: threads, page: 1, pages: page_count, changeset: errors)
-    end
+    IO.inspect(thread_params)
+    board = Boards.get_board!(board_id)
+    pages = Threads.list_threads(board_id) |>
+      Enum.chunk_every(10)
+    page_count = max(Enum.count(pages),1)
+    threads = case pages do
+		[] ->
+		  []
+		[ _ | _ ] ->
+		  Enum.at(pages,0)
+	      end
+    { _ , changeset }=
+      %Thread{}
+      |> Thread.changeset(thread_params)
+      |> Ecto.Changeset.add_error(:file, "no file selected")
+      |> Ecto.Changeset.apply_action(:insert)
+    render(conn, ChanWeb.BoardView,
+      "show.html",
+      board: board,
+      threads: threads,
+      page: 1,
+      pages: page_count,
+      changeset: changeset)
   end
 
   def show(%{private: %{phoenix_format: format}} = conn, %{"id" => id, "board_id" => board_id}) do

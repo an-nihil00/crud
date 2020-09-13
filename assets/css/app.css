@@ -146,8 +146,18 @@ button:hover {
     color:$text-color2;
 }
 
-.timestamp a {
+.timestamp a, .fileText a{
     color:$text-color2;
+}
+
+.fileText a:hover {
+    color:$accent-color1;
+    text-decoration:underline;
+}
+
+.timestamp a:hover {
+    color:$accent-color1;
+    text-decoration:underline;
 }
 
 .button {
@@ -172,11 +182,6 @@ button:hover {
 
 .intro a {
     text-decoration:none;
-}
-
-.timestamp a:hover {
-    color:$accent-color1;
-    text-decoration:underline;
 }
 
 .postContainer {
@@ -318,16 +323,37 @@ ul li {
     color: #c00;
 }
 
-.opImageThumb {
+.thread .imageThumb {
     max-width: 250px;
     max-height: 250px;
     float: left;
     margin: 3px 20px 5px;
 }
 
-.imageThumb {
+img {
+    max-width:100%;
+    max-height:100%;
+}
+
+.reply .imageThumb {
     max-width: 125px;
     max-height: 125px;
     float: left;
     margin: 3px 20px 5px;
 }
+
+.imageFull {
+    display: block;
+    margin: 3px 20px 5px;
+}
+
+.catalogThumb {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.fileText {
+    margin-left: 20px;
+}
+
+

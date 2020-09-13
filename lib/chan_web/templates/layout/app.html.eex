@@ -7,6 +7,12 @@
     <title>Chan · Phoenix Framework</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      function expand(element) {
+	  element.classList.toggle("imageFull")
+	  element.classList.toggle("imageThumb")
+      }
+    </script>
   </head>
   <body>
     <div class = "container">

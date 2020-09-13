@@ -20,7 +20,7 @@ defmodule Chan.MixProject do
   def application do
     [
       mod: {Chan.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:sizeable, :logger, :runtime_tools]
     ]
   end
 
@@ -46,7 +46,8 @@ defmodule Chan.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:comeonin, "~> 4.0"},
-      {:bcrypt_elixir, "~> 1.0"}
+      {:bcrypt_elixir, "~> 1.0"},
+      {:sizeable, "~> 1.0"}
     ]
   end
 

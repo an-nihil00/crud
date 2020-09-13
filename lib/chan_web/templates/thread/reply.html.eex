@@ -17,7 +17,13 @@
       </span>
     </p>
     <%= if @post.upload != nil do %>
-    <img src=<%=ChanWeb.Router.Helpers.board_upload_path(@conn, :show, @board_id, @post.upload.id)%> class = "imageThumb">
+    <% imageLink = ChanWeb.Router.Helpers.board_upload_path(@conn, :show, @board_id, @post.upload.id)%>
+    <div class = "fileText">
+      File:<a href = <%= imageLink%>><%= @post.upload.filename%></a> (<%= Sizeable.filesize(@post.upload.size)%>)
+    </div>
+    <a class = "imageThumb" href = "#" onclick = "expand(this);return false;">
+      <img src= <%= imageLink%>>
+    </a>
     <% end %>
     <p class = "replyText"><%= ChanWeb.Formatting.as_html @post.comment %></p>
   </div>
