@@ -1,6 +1,6 @@
 # (Slime)Chan
 
-This is an imageboard (eventually) written in with Phoenix. As it is now, its a mostly functional anonymous textboard.
+This is an imageboard written in with Phoenix.
 
 ## Why?
 
@@ -12,7 +12,6 @@ This is designed to be run with nix (since thats what i'm developing on). It sho
 
 ## To do
 
-- file uploads
 - moderation
 - replys to other posts
 - shortcodes for emojis
