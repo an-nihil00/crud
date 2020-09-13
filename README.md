@@ -15,6 +15,8 @@ This is designed to be run with nix (since thats what i'm developing on). It sho
 - moderation
 - replys to other posts
 - shortcodes for emojis
+- more info about files
+- embeds for files other than images
 
 ## Attributions
 
