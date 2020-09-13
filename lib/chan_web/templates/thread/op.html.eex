@@ -1,4 +1,7 @@
 <% link = ChanWeb.Router.Helpers.board_thread_path(@conn, :show, @board_id, @thread_id)%>
+<%= if @op.upload != nil do %>
+    <img src=<%=ChanWeb.Router.Helpers.board_upload_path(@conn, :show, @board_id, @op.upload.id)%> class = "opImageThumb">
+    <% end %>
 <p class = "intro">
   <%= inputs_for @f, :threads, fn i -> %>
   <%= checkbox i, String.to_atom("#{@thread_id}") %>

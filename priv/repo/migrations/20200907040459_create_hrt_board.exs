@@ -26,7 +26,7 @@ defmodule Chan.Repo.Migrations.CreateHrtBoard do
       add :size, :integer
       add :content_type, :string
       add :hash, :string, size: 64
-      add :post_id, references(:posts)
+      add :post_id, references(:posts, on_delete: :delete_all)
 
       timestamps()
     end

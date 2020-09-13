@@ -39,7 +39,7 @@
       <tr>
 	<th>File</th>
 	<td>
-	  <input type = "file" name = "thread[file]" accept = ".pdf,image/*">
+	  <input type = "file" name = "file" accept = "image/*">
 	</td>
       </tr>
       <tr>

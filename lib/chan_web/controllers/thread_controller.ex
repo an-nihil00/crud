@@ -7,6 +7,7 @@ defmodule ChanWeb.ThreadController do
   alias Chan.Posts.Post
   alias Chan.Boards
   alias Chan.Repo
+  alias Chan.Posts.Upload
 
   action_fallback ChanWeb.FallbackController
 
@@ -17,7 +18,42 @@ defmodule ChanWeb.ThreadController do
     render(conn, "catalog.html", board: board, threads: threads, changeset: changeset)
   end
 
-  def create(conn, %{"thread" => thread_params, "board_id" => board_id, "options" => options}) do
+  def create(conn, %{"thread" => thread_params,
+		     "board_id" => board_id,
+		     "options" => options,
+		     "file" => file}) do
+    case Threads.create_thread(thread_params, board_id) do
+      {:ok, thread} ->
+	IO.inspect(thread)
+	with {:ok, %Upload{}} <- Posts.create_upload_from_plug_upload(file, board_id, Enum.at(thread.posts,0).id) do
+	  if String.contains? options, "nonoko" do
+	    conn
+	    |> put_status(302)
+	    |> redirect(to: Routes.board_path(conn, :show, board_id))
+	  else
+	    conn
+	    |> put_status(302)
+	    |> redirect(to: Routes.board_thread_path(conn, :show, board_id,thread.id))
+	  end
+	end
+      {:error, errors} ->
+	board = Boards.get_board!(board_id)
+	pages = Threads.list_threads(board_id) |>
+	  Enum.chunk_every(10)
+	page_count = max(Enum.count(pages),1)
+	threads = case pages do
+		    [] ->
+		      []
+		    [ _ | _ ] ->
+		      Enum.at(pages,0)
+		  end
+	render(conn, ChanWeb.BoardView, "show.html", board: board, threads: threads, page: 1, pages: page_count, changeset: errors)
+    end
+  end
+  
+  def create(conn, %{"thread" => thread_params,
+		     "board_id" => board_id,
+		     "options" => options}) do
     case Threads.create_thread(thread_params, board_id) do
       {:ok, thread} ->
 	if String.contains? options, "nonoko" do
