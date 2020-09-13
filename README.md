@@ -1,4 +1,4 @@
-# (Slime)Chan
+# SlimeChan
 
 This is an imageboard written in with Phoenix.
 
