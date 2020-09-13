@@ -10,6 +10,11 @@
   <span class = "name">
     <%= @op.name%>
   </span>
+  <%= if @op.trip != nil do %>
+  <span class = "trip">
+    !<%= @op.trip%>
+  </span>
+  <% end %>
   <span class = "timestamp">
   <%= @op.inserted_at%> <a href="<%= link%>">No.<%= @op.id%></a>
   </span>

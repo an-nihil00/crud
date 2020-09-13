@@ -7,6 +7,11 @@
       <%= checkbox i, String.to_atom("#{@post.id}") %>
       <% end %>
       <span class = "name"><%= @post.name%></span>
+      <%= if @post.trip != nil do %>
+      <span class = "trip">
+	!<%= @post.trip%>
+      </span>
+      <% end %>
       <span class = "timestamp">
 	<%= @post.inserted_at%> <a href="#<%= @post.id%>">No.<%= @post.id%></a>
       </span>

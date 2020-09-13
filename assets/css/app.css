@@ -17,7 +17,7 @@ body {
     background-color:$background-color;
     color:$text-color1;
     font-family:$font-stack;
-    font-size:12pt;
+    font-size:16px;
     padding: 0px 5px;
     /*width:80%;
     margin:0 auto;*/
@@ -136,6 +136,10 @@ button:hover {
 .name {
     color:$accent-color2;
     font-weight: 700;
+}
+
+.trip {
+    color:$accent-color2;
 }
 
 .timestamp {

@@ -8,7 +8,8 @@ defmodule Chan.Posts.Post do
     field :comment, :string
     field :image, :string
     field :name, :string, default: "Anonymous"
-    field :password_hash, :string 
+    field :password_hash, :string
+    field :trip, :string
 
     field :password, :string, virtual: true
     
@@ -24,6 +25,7 @@ defmodule Chan.Posts.Post do
     |> cast(attrs, [:name, :image, :comment, :password])
     |> validate_required([:name, :password])
     |> hash_password
+    |> trip_code
   end
 
   defp hash_password(changeset) do
@@ -34,5 +36,32 @@ defmodule Chan.Posts.Post do
     else
       changeset
     end
+  end
+
+  defp trip_code(changeset) do
+    name = get_change(changeset, :name)
+    if name do
+      if String.contains? name, "#" do
+	[ user, trip | _ ] = String.split(name, "#", parts: 2)
+	trip = String.slice (sha1 trip), 0, 12
+	if user == "" do
+	  put_change(changeset, :name, "Anonymous")
+	  |> put_change(:trip, trip)
+        else
+	  put_change(changeset, :name, user)
+	  |> put_change(:trip, trip)
+	end
+      else
+	changeset
+      end
+    else
+      changeset
+    end
+  end
+
+  defp sha1(string) do
+    :crypto.hash(:sha, string)
+    |> Base.encode64()
+    |> String.downcase()
   end
 end

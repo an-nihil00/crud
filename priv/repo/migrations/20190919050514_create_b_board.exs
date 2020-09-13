@@ -16,6 +16,7 @@ defmodule Chan.Repo.Migrations.CreateBBoard do
       add :image, :string
       add :comment, :text
       add :password_hash, :string
+      add :trip, :string
       add :thread_id, references(:threads, on_delete: :delete_all)
 
       timestamps()
