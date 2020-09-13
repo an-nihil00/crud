@@ -21,6 +21,16 @@ defmodule Chan.Repo.Migrations.Create<%= String.capitalize(@abb)%>Board do
       timestamps()
     end
 
+    create table(:uploads, prefix: "<%= @abb%>") do
+      add :filename, :string
+      add :size, :integer
+      add :content_type, :string
+      add :hash, :string, size: 64
+      add :post_id, references(:posts)
+
+      timestamps()
+    end
+
     create table(:replies, prefix: "<%= @abb%>") do
       add :post, references(:posts)
       add :reply, references(:posts)

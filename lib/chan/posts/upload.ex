@@ -8,6 +8,8 @@ defmodule Chan.Posts.Upload do
     field :hash, :string
     field :size, :integer
 
+    belongs_to :post, Chan.Posts.Post
+
     timestamps()
   end
 

@@ -3,6 +3,7 @@ defmodule ChanWeb.PostController do
 
   alias Chan.Posts
   alias Chan.Posts.Post
+  alias Chan.Posts.Upload
   alias Chan.Threads
   alias Chan.Posts.Passwords
 
@@ -12,10 +13,35 @@ defmodule ChanWeb.PostController do
     posts = Posts.list_posts()
     render(conn, "index.json", posts: posts)
   end
-
-  def create(conn, %{"post" => post_params, "thread_id" => thread_id, "board_id" => board_id, "options" => options}) do
+  
+  def create(conn, %{"post" => post_params,
+		     "file" => file,
+		     "thread_id" => thread_id,
+		     "board_id" => board_id,
+		     "options" => options}) do
     thread = Threads.get_thread!(thread_id,board_id)
-    with {:ok, %Post{}} <- Posts.create_post(post_params, thread, board_id, String.contains?(options, "sage")) do
+    with {:ok, post} <- Posts.create_post(post_params, thread, board_id, String.contains?(options, "sage")) do
+      with {:ok, %Upload{}} <- Posts.create_upload_from_plug_upload(file, board_id, post.id) do
+	if String.contains? options, "nonoko" do
+	  conn
+	  |> put_status(302)
+	  |> redirect(to: Routes.board_path(conn, :show, board_id))
+	else
+	  conn
+	  |> put_status(302)
+	  |> redirect(to: Routes.board_thread_path(conn, :show, board_id,thread.id))
+	end
+      end
+    end
+  end
+
+  def create(conn, %{"post" => post_params,
+		     "thread_id" => thread_id,
+		     "board_id" => board_id,
+		     "options" => options}) do
+    thread = Threads.get_thread!(thread_id,board_id)
+    with {:ok, post} <- Posts.create_post(post_params, thread, board_id, String.contains?(options, "sage")) do
+      IO.inspect(post.id)
       if String.contains? options, "nonoko" do
 	conn
 	|> put_status(302)

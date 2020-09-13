@@ -7,7 +7,7 @@
   <h1>/<%= @board.abb %>/ - <%= @board.name %></h1>
 </div>
 <hr class = "abovePostForm">
-<%= form_for @changeset, create_link, [id: "postForm", autocomplete: "off"], fn f -> %>
+<%= form_for @changeset, create_link, [id: "postForm", autocomplete: "off", multipart: true], fn f -> %>
   <table>
     <tbody>
       <tr>
@@ -31,7 +31,7 @@
       <tr>
 	<th>File</th>
 	<td>
-	  <input type = "file" name = "file">
+	  <input type = "file" name = "file" accept = "pdf,image/*">
 	</td>
       </tr>
       <tr>

@@ -13,6 +13,7 @@ defmodule Chan.Posts.Post do
     field :password, :string, virtual: true
     
     belongs_to :thread, Chan.Threads.Thread
+    has_one :upload, Chan.Posts.Upload
     
     timestamps()
   end

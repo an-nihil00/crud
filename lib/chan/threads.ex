@@ -37,8 +37,8 @@ defmodule Chan.Threads do
 
   """
   def get_thread!(id,board_id) do
-    thread = Repo.get!(Thread, id, prefix: board_id)
-    Repo.preload(thread, [:posts])
+    Repo.get!(Thread, id, prefix: board_id)
+    |> Repo.preload([posts: :upload])
   end
   @doc """
   Creates a thread.

@@ -11,6 +11,9 @@
 	<%= @post.inserted_at%> <a href="#<%= @post.id%>">No.<%= @post.id%></a>
       </span>
     </p>
+    <%= if @post.upload != nil do %>
+    <img src=<%=ChanWeb.Router.Helpers.board_upload_path(@conn, :show, @board_id, @post.upload.id)%> class = "imageThumb">
+    <% end %>
     <p class = "replyText"><%= ChanWeb.Formatting.as_html @post.comment %></p>
   </div>
 </div>

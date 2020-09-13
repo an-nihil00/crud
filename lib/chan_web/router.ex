@@ -28,10 +28,10 @@ defmodule ChanWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/uploads/:id", UploadController, :show
     resources "/boards", BoardController, only: [:show] do
       get "/catalog", ThreadController, :index
       get "/:page", BoardController, :show
+      get "/uploads/:id", UploadController, :show
       post "/delete", PostController, :delete
       resources "/thread", ThreadController, only: [:show, :create] do
 	post "/create", PostController, :create

@@ -138,16 +138,17 @@ defmodule Chan.Posts do
     filename: filename,
     path: tmp_path,
     content_type: content_type
-}) do
+}, board_id, post_id) do
     hash = 
       File.stream!(tmp_path, [], 2048) 
       |> Upload.sha256()
+    post = get_post! post_id, board_id
     with {:ok, %File.Stat{size: size}} <- File.stat(tmp_path),  
     {:ok, upload} <- 
-    %Upload{} |> Upload.changeset(%{
+    Ecto.build_assoc(post, :upload) |> Upload.changeset(%{
 	  filename: filename, content_type: content_type,
 	  hash: hash, size: size }) 
-	  |> Repo.insert(),
+	  |> Repo.insert(prefix: board_id),
 	  
       :ok <- File.cp(
 	tmp_path,

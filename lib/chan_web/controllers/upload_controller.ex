@@ -5,8 +5,8 @@ defmodule ChanWeb.UploadController do
   alias Chan.Posts
   alias Chan.Posts.Upload
 
-  def show(conn, %{"id" => id}) do
-    case Repo.get(Upload, id) do
+  def show(conn, %{"id" => id, "board_id" => board_id}) do
+    case Repo.get(Upload, id, prefix: board_id) do
       nil ->
 	text conn, "not found!"
       upload ->

@@ -21,6 +21,16 @@ defmodule Chan.Repo.Migrations.CreateBBoard do
       timestamps()
     end
 
+    create table(:uploads, prefix: "b") do
+      add :filename, :string
+      add :size, :integer
+      add :content_type, :string
+      add :hash, :string, size: 64
+      add :post_id, references(:posts)
+
+      timestamps()
+    end
+
     create table(:replies, prefix: "b") do
       add :post, references(:posts)
       add :reply, references(:posts)
@@ -38,6 +48,7 @@ defmodule Chan.Repo.Migrations.CreateBBoard do
   def down do
     drop table(:threads, prefix: "b")
     drop table(:posts, prefix: "b")
+    drop table(:uploads, prefix: "b")
     from(b in Chan.Boards.Board, where: b.abb == "b") |> Chan.Repo.delete_all
   end
 end

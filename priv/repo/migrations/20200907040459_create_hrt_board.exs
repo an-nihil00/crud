@@ -21,6 +21,16 @@ defmodule Chan.Repo.Migrations.CreateHrtBoard do
       timestamps()
     end
 
+    create table(:uploads, prefix: "hrt") do
+      add :filename, :string
+      add :size, :integer
+      add :content_type, :string
+      add :hash, :string, size: 64
+      add :post_id, references(:posts)
+
+      timestamps()
+    end
+
     create table(:replies, prefix: "hrt") do
       add :post, references(:posts)
       add :reply, references(:posts)
@@ -38,6 +48,7 @@ defmodule Chan.Repo.Migrations.CreateHrtBoard do
   def down do
     drop table(:threads, prefix: "hrt")
     drop table(:posts, prefix: "hrt")
+    drop table(:uploads, prefix: "hrt")
     from(b in Chan.Boards.Board, where: b.abb == "hrt") |> Chan.Repo.delete_all
   end
 end
