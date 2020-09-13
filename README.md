@@ -4,7 +4,7 @@ This is an imageboard written in with Phoenix.
 
 ## Why?
 
-Because I wanted to learn phoenix and and also every imageboard engine seems to be written in php, which I hate.
+Because I wanted to learn phoenix and I like imageboards.
 
 ## Setup
 
