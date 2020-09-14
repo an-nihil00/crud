@@ -4,6 +4,8 @@ defmodule Chan.Posts.Post do
 
   alias Chan.Posts.Passwords
 
+  @emojis File.read!("assets/static/emojis.json") |> Jason.decode!
+  
   schema "posts" do
     field :comment, :string
     field :image, :string
@@ -26,6 +28,7 @@ defmodule Chan.Posts.Post do
     |> cast(attrs, [:name, :image, :comment, :password])
     |> cast_assoc(:upload)
     |> validate_required([:name, :password])
+    |> shortcodes
     |> hash_password
     |> trip_code
   end
@@ -61,6 +64,17 @@ defmodule Chan.Posts.Post do
     end
   end
 
+  defp shortcodes(changeset) do
+    comment = get_change(changeset, :comment)
+    if comment do
+      put_change(changeset,
+	:comment,
+	String.replace(comment, ~r/:\w+:/, fn code -> if @emojis[code] do @emojis[code] else code end end))
+    else
+      changeset
+    end
+  end
+  
   defp sha1(string) do
     :crypto.hash(:sha, string)
     |> Base.encode64()
