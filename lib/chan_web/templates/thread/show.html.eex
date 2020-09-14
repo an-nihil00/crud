@@ -25,7 +25,7 @@
       <tr>
 	<th>Comment</th>
 	<td>
-	  <%= textarea f, :comment %>
+	  <%= textarea f, :comment , [id: "comment"]%>
 	</td>
       </tr>
       <tr>
@@ -49,9 +49,9 @@
 <%= form_for :delete, ChanWeb.Router.Helpers.board_post_path(@conn, :delete, @board.abb), fn f -> %>
 <% [head | tail] = @thread.posts %>
 <div class = "thread">
-<%= render(ChanWeb.ThreadView, "op.html", op: head, thread_id: @thread.id, board_id: @board.abb, subject: @thread.subject, f: f, conn: @conn) %>
+<%= render(ChanWeb.ThreadView, "op.html", short: false, op: head, thread_id: @thread.id, board_id: @board.abb, subject: @thread.subject, f: f, conn: @conn) %>
 <%= for p <- tail do %>
-    <%= render(ChanWeb.ThreadView, "reply.html", post: p, thread_id: @thread.id, board_id: @board.abb, subject: @thread.subject, f: f, conn: @conn) %>
+    <%= render(ChanWeb.ThreadView, "reply.html", short: false, post: p, thread_id: @thread.id, board_id: @board.abb, subject: @thread.subject, f: f, conn: @conn) %>
     <% end %>
 </div>
 <a id = "bottom"></a>

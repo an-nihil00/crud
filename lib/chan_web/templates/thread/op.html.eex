@@ -22,7 +22,8 @@
   </span>
   <% end %>
   <span class = "timestamp">
-  <%= @op.inserted_at%> <a href="<%= link%>">No.<%= @op.id%></a>
+    <%= @op.inserted_at%> <a href="<%= link%>">No.</a><%= if @short do %><a href= "<%= link%>?comment=%3E%3E<%= @op.id%>" ><%= @op.id%></a><% else %><a href= "#" onClick = "add_reply(<%= @op.id %>);return false;"><%= @op.id%></a>
+  <%end%>
   </span>
   <a class = "button" href = "<%= link%>">Reply</a>
   <%= for r <- @op.replies do %>

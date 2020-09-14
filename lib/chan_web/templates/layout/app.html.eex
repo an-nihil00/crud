@@ -12,6 +12,9 @@
 	  element.classList.toggle("imageFull")
 	  element.classList.toggle("imageThumb")
       }
+      function add_reply(id) {
+	  document.getElementById("comment").append("\n>>"+id)
+      }
     </script>
   </head>
   <body>

@@ -14,7 +14,7 @@ defmodule ChanWeb.ThreadController do
   def index(conn, %{"board_id" => board_id}) do
     board = Boards.get_board!(board_id)
     threads = Threads.list_threads(board_id)
-    changeset = %Thread{} |> Thread.changeset(%{posts: [%{}]})
+    changeset = %Thread{} |> Thread.changeset(%{posts: [%{name: ""}]})
     render(conn, "catalog.html", board: board, threads: threads, changeset: changeset)
   end
 
@@ -80,6 +80,13 @@ defmodule ChanWeb.ThreadController do
       changeset: changeset)
   end
 
+  def show(%{private: %{phoenix_format: format}} = conn, %{"id" => id, "board_id" => board_id, "comment" => comment}) do
+    board = Boards.get_board!(board_id)
+    thread = Threads.get_thread!(id,board_id)
+    changeset = %Post{} |> Post.changeset(%{name: "", comment: comment})
+    render(conn, "show.#{format}", board: board, thread: thread, changeset: changeset)
+  end
+  
   def show(%{private: %{phoenix_format: format}} = conn, %{"id" => id, "board_id" => board_id}) do
     board = Boards.get_board!(board_id)
     thread = Threads.get_thread!(id,board_id)

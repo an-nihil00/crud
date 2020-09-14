@@ -14,7 +14,8 @@
       </span>
       <% end %>
       <span class = "timestamp">
-	<%= @post.inserted_at%> <a href="<%=link%>#<%= @post.id%>">No.<%= @post.id%></a>
+	<%= @post.inserted_at%> <a href="<%= link%>">No.</a><%= if @short do %><a href= "<%= link%>?comment=%3E%3E<%= @post.id%>" ><%= @post.id%></a><% else %><a href= "#" onClick = "add_reply(<%= @post.id %>);return false;"><%= @post.id%></a>
+  <%end%>
       </span>
       <%= for r <- @post.replies do %>
       <a href = "<%=link%>#<%=r.id%>" class = "backLink">>><%= r.id %></a>
