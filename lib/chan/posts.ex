@@ -57,6 +57,11 @@ defmodule Chan.Posts do
     Repo.get!(Post, id, prefix: board_id)
   end
 
+  def get_post(id, board_id) do
+    Repo.get(Post, id, prefix: board_id)
+    |> Repo.preload(:replies)
+  end
+  
   @doc """
   Creates a post.
 
@@ -82,9 +87,11 @@ defmodule Chan.Posts do
 	      if comment do
 		for post_id <- Regex.scan(~r/>>(\d+)/, comment)
 		|> Enum.map(fn [_ , post_id] -> String.to_integer(post_id) end) do
-		  with op <- Repo.get(Post, post_id, prefix: board_id) do
+		  with op <- get_post(post_id, board_id) do
 		    if op do
-		      add_reply op, inserted, board_id
+		      if op.thread_id == inserted.thread_id do
+			add_reply op, inserted, board_id
+		      end
 		    end
 		  end
 		end
@@ -122,7 +129,7 @@ defmodule Chan.Posts do
     post
     |> Repo.preload(:replies)
     |> Ecto.Changeset.change()
-    |> Ecto.Changeset.put_assoc(:replies, [reply])
+    |> Ecto.Changeset.put_assoc(:replies, [reply | post.replies])
     |> Repo.update(prefix: board_id)
   end
 

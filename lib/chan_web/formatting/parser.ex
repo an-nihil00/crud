@@ -60,7 +60,7 @@ defmodule ChanWeb.Formatting.Parser do
 	">" ->
 	  [ next | rest ] = String.split tail, " ", parts: 2
 	  if ! String.match? next, ~r/\D/ do
-	    scan Enum.join(rest, " "), %{parsed: [{">>", next, safe_string(">>") <> next}, safe_string(fragment) | parsed], fragment: ""}
+	    scan Enum.join(rest, " "), %{parsed: [{">>", String.to_integer(next), safe_string(">>") <> next}, safe_string(fragment) | parsed], fragment: ""}
 	  else
 	    scan tail, %{parsed: parsed, fragment: fragment <> ">>"}
 	  end

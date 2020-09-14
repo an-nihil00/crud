@@ -28,6 +28,6 @@
       <img src= <%= imageLink%>>
     </a>
     <% end %>
-    <p class = "replyText"><%= ChanWeb.Formatting.as_html @post.comment %></p>
+    <p class = "replyText"><%= ChanWeb.Formatting.as_html @post.comment, @post.id, @board_id%></p>
   </div>
 </div>

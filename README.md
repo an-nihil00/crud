@@ -13,7 +13,6 @@ This is designed to be run with nix (since thats what i'm developing on). It sho
 ## To do
 
 - moderation
-- replys to other posts
 - shortcodes for emojis
 - embeds for files other than images
 

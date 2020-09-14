@@ -30,6 +30,6 @@
       <% end %>
 </p>
 <a id = "<%= @op.id%>"></a>
-  <p class = "opText"><%= ChanWeb.Formatting.as_html @op.comment %></p>
+  <p class = "opText"><%= ChanWeb.Formatting.as_html @op.comment, @op.id, @board_id%></p>
 
 
