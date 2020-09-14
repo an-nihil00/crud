@@ -1,4 +1,4 @@
-<% posts = Chan.Posts.list_posts%>
+
 <div class = "home">
   <img src = <%=Routes.static_path(@conn, "/images/banner.png")%> id = "homeBanner">
   <div class = "recent">
@@ -6,17 +6,28 @@
       <div class = "header">
 	<h2>Recent Images</h2>
       </div>
+      <ul>
+	<%= for {i,b} <- @recent_images do %>
+	    <% imageLink = ChanWeb.Router.Helpers.board_upload_path(@conn, :show, b, i.id)%>
+	    <% threadLink = ChanWeb.Router.Helpers.board_thread_path(@conn, :show, b, i.post.thread_id)%>
+	    <li>
+	      <a href = "<%=threadLink%>#<%=i.post_id%>">
+		<img src = "<%= imageLink %>" class = "recentThumb"></img>
+	      </a>
+	    </li>
+	    <% end %>
+</ul>
     </div>
     <div class = "column">
       <div class = "header">
 	<h2>Recent Posts</h2>
       </div>
       <ul>
-	<% recent_posts = Enum.take posts, 15 %>
-	<%= for p <- recent_posts do %>
+	<%= for {p,b} <- @recent_posts do %>
+	    <% threadLink = ChanWeb.Router.Helpers.board_thread_path(@conn, :show, b.abb, p.thread_id)%>
 	    <li>
-	      <span class="name"><%= p.name%>:</span>
-	      <%= case p.comment do
+	      <span class="name"><%= b.name%>:</span>
+	      <a  class = "summary" href = "<%=threadLink%>#<%=p.id%>"><%= case p.comment do
 		  nil ->
 	      "(no comment)"
 	      comment ->
@@ -25,7 +36,7 @@
 	else
 	comment
 	end
-	end%>
+	end%></a>
 </li>
 <% end %>
 </ul>
@@ -36,8 +47,8 @@
     <h2>Stats</h2>
   </div>
   <ul>
-    <li>Total Posts: <%= Enum.count posts%></li>
-    <li></li>
+    <li>Total Posts: <%= @total_posts %></li>
+    <li>Total Images: <%= @total_images %></li>
     <li></li>
   </ul>
 </div>

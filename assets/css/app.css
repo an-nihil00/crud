@@ -50,7 +50,7 @@ h1 {
 
 .navbar a {
     text-decoration: none;
-}
+}X
 
 .navbar a:link, .navbar a:visited {
     color:$text-color1;
@@ -276,6 +276,8 @@ img.emoji {
 .column {
     width:50%;
     margin: 0 5px;
+    max-height: 600px;
+    overflow: hidden;
 }
 
 .stats {
@@ -376,4 +378,12 @@ a.replyLink {
 .opText {
     white-space: pre-line;
     margin: 10px 0;
+}
+
+.recentThumb {
+    max-width: 300px;
+}
+
+a.summary{
+    text-decoration: none;
 }

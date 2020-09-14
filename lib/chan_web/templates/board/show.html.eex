@@ -54,7 +54,7 @@
   </table>
   <% end %>
   <hr>
-  <a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" onclick = "location.reload()">Update</a><a class = "button" href = "#bottom">Bottom</a>
+  <a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" href = "#" onclick = "location.reload()">Update</a><a class = "button" href = "#bottom">Bottom</a>
   <hr>
   <%= form_for :delete, ChanWeb.Router.Helpers.board_post_path(@conn, :delete, @board.abb), fn f -> %>
 <%= for thread <- @threads do %>

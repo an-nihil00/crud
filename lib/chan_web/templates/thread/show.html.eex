@@ -44,7 +44,7 @@
   </table>
 <% end %>
 <hr>
-<a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" onclick = "location.reload()">Update</a><a class = "button" href = "#bottom">Bottom</a>
+<a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" href = "#" onclick = "location.reload()">Update</a><a class = "button" href = "#bottom">Bottom</a>
 <hr>
 <%= form_for :delete, ChanWeb.Router.Helpers.board_post_path(@conn, :delete, @board.abb), fn f -> %>
 <% [head | tail] = @thread.posts %>
@@ -56,7 +56,7 @@
 </div>
 <a id = "bottom"></a>
 <hr>
-<a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" onclick = "location.reload()">Update</a><a class = "button" href = "#top">Top</a>
+<a class = "button" href = "<%= return_link%>">Return</a><a class = "button" href = "<%= catalog_link%>">Catalog</a><a class = "button" href = "#" onclick = "location.reload();">Update</a><a class = "button" href = "#top">Top</a>
 <div class = "deleteForm">
   <%= password_input :delete, :password, [placeholder: "Password"] %>
   <%= submit "Delete" %>

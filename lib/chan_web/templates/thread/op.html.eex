@@ -26,7 +26,7 @@
   </span>
   <a class = "button" href = "<%= link%>">Reply</a>
   <%= for r <- @op.replies do %>
-      <a href = "#<%=r.id%>" class = "backLink">>><%= r.id %></a>
+      <a href = "<%=link%>#<%=r.id%>" class = "backLink">>><%= r.id %></a>
       <% end %>
 </p>
 <a id = "<%= @op.id%>"></a>

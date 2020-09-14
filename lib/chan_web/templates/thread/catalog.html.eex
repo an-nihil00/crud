@@ -50,8 +50,9 @@
 <div id = "threads">
   <%= for thread <- @threads do %>
       <% imageLink = ChanWeb.Router.Helpers.board_upload_path(@conn, :show, @board.abb, Enum.at(thread.posts,0).upload.id)%>
+      <% threadLink = ChanWeb.Router.Helpers.board_thread_path(@conn, :show, @board.abb, thread.id)%>
     <div class = "catalog">
-      <img src = <%= imageLink %> class = "catalogThumb">
+      <a href = "<%= threadLink%>" ><img src = <%= imageLink %> class = "catalogThumb"></a>
       <div class = "meta">R:<%= Enum.count(thread.posts)-1%></div>
       <div class = "subject"><%= thread.subject%></div>
       <div class = "teaser"><%= Enum.at(thread.posts,0).comment%></div>

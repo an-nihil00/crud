@@ -1,3 +1,4 @@
+<% link = ChanWeb.Router.Helpers.board_thread_path(@conn, :show, @board_id, @thread_id)%>
 <div class = "postContainer">
   <a id="<%= @post.id%>"></a>
   <div class = "sideArrows">>></div>
@@ -13,10 +14,10 @@
       </span>
       <% end %>
       <span class = "timestamp">
-	<%= @post.inserted_at%> <a href="#<%= @post.id%>">No.<%= @post.id%></a>
+	<%= @post.inserted_at%> <a href="<%=link%>#<%= @post.id%>">No.<%= @post.id%></a>
       </span>
       <%= for r <- @post.replies do %>
-      <a href = "#<%=r.id%>" class = "backLink">>><%= r.id %></a>
+      <a href = "<%=link%>#<%=r.id%>" class = "backLink">>><%= r.id %></a>
       <% end %>
     </p>
     <%= if @post.upload != nil do %>

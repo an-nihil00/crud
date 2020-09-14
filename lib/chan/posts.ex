@@ -23,7 +23,14 @@ defmodule Chan.Posts do
     Boards.list_boards() |>
       Enum.map(fn b -> b.abb end) |>
       Enum.flat_map(fn b -> list_posts(b) end) |>
-      Enum.sort_by(fn p -> p.inserted_at end)
+      Enum.sort_by(fn {p,_} -> p.inserted_at end, &>=/2)
+  end
+
+  def list_uploads do
+    Boards.list_boards() |>
+      Enum.map(fn b -> b.abb end) |>
+      Enum.flat_map(fn b -> list_uploads(b) end) |>
+      Enum.sort_by(fn {u,_} -> u.inserted_at end, &>=/2)
   end
   
   @doc """
@@ -37,6 +44,13 @@ defmodule Chan.Posts do
   """
   def list_posts (board_id) do
     Repo.all(Post, prefix: board_id)
+    |> Enum.map(fn p -> {p, Boards.get_board!(board_id)} end)
+  end
+
+  def list_uploads (board_id) do
+    Repo.all(Upload, prefix: board_id)
+    |> Repo.preload(:post)
+    |> Enum.map(fn u -> {u, board_id} end)
   end
 
   @doc """
