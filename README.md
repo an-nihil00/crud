@@ -1,6 +1,6 @@
 # ♡SlimeChan♡
 
-This is an imageboard written in with Phoenix. It's not really on par with existing imageboard engines and i certainly don't expect anybody to use it, but I wanted to learn phoenix and like imageboards so it seemed like a cool project. I also tried to minimize the amount of JS used, because I have an aversion to it.
+This is an imageboard written with Phoenix. It's not really on par with existing imageboard engines and i certainly don't expect anybody to use it, but I wanted to learn phoenix and like imageboards so it seemed like a cool project. I also tried to minimize the amount of JS used, because I have an aversion to it.
 
 Hope anyone else who sees this enjoys.
 
