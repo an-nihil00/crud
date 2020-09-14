@@ -357,4 +357,23 @@ img {
     margin-left: 20px;
 }
 
+a.backLink {
+    color: $text-color2;
+    font-size:0.8em;
+    text-decoration:underline;
+}
 
+a.backLink:hover {
+    color: $accent-color1;
+    font-size:0.8em;
+    text-decoration:underline;
+}
+
+a.replyLink {
+    color: $accent-color1;
+}
+
+.opText {
+    white-space: pre-line;
+    margin: 10px 0;
+}

@@ -15,13 +15,13 @@ defmodule Chan.Posts.Post do
     
     belongs_to :thread, Chan.Threads.Thread
     has_one :upload, Chan.Posts.Upload
+    many_to_many :replies, Chan.Posts.Post, join_through: "replies", join_keys: [post_id: :id, reply_id: :id]
     
     timestamps()
   end
 
   @doc false
   def changeset(post, attrs) do
-    
     post
     |> cast(attrs, [:name, :image, :comment, :password])
     |> cast_assoc(:upload)
@@ -29,7 +29,7 @@ defmodule Chan.Posts.Post do
     |> hash_password
     |> trip_code
   end
-
+  
   defp hash_password(changeset) do
     password = get_change(changeset, :password)
     if password do

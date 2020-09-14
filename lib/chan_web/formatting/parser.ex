@@ -9,16 +9,23 @@ defmodule ChanWeb.Formatting.Parser do
     |> Enum.map(&scan_line/1)
   end
 
-  defp scan_line line do
-    case String.first(line) do
-      ">" ->
-	{">",scan(line, %{parsed: [], fragment: ""})}
-      _   ->
-	scan(line, %{parsed: [], fragment: ""})
+  def scan_line line do
+    with {head, tail} <- String.split_at line, 1 do
+      case head do
+	">" ->
+	  case String.first(tail) do
+	    ">" ->
+	      scan(line, %{parsed: [], fragment: ""})
+	    _ ->
+	      {">",scan(line, %{parsed: [], fragment: ""})}
+	  end
+	_   ->
+	  scan(line, %{parsed: [], fragment: ""})
+      end
     end
   end
   
-  defp scan string, %{parsed: parsed, fragment: fragment} do
+  def scan string, %{parsed: parsed, fragment: fragment} do
     if String.length(string) == 0 do
       [ safe_string(fragment) | parsed]
       |> Enum.reverse
@@ -29,6 +36,8 @@ defmodule ChanWeb.Formatting.Parser do
 	    match_delim tail, "*", %{parsed: parsed, fragment: fragment}
 	  "=" ->
 	    match_delim tail, "=", %{parsed: parsed, fragment: fragment}
+	  ">" ->
+	    match_reply tail, %{parsed: parsed, fragment: fragment}
 	  _ ->
 	    scan tail, %{parsed: parsed, fragment: fragment <> head}
 	end
@@ -45,6 +54,22 @@ defmodule ChanWeb.Formatting.Parser do
     end
   end
 
+  defp match_reply string, %{parsed: parsed, fragment: fragment} do
+    with {head,tail} <- String.split_at string,1 do
+      case head do
+	">" ->
+	  [ next | rest ] = String.split tail, " ", parts: 2
+	  if ! String.match? next, ~r/\D/ do
+	    scan Enum.join(rest, " "), %{parsed: [{">>", next, safe_string(">>") <> next}, safe_string(fragment) | parsed], fragment: ""}
+	  else
+	    scan tail, %{parsed: parsed, fragment: fragment <> ">>"}
+	  end
+	_ ->
+	  scan tail, %{parsed: parsed, fragment: fragment <> ">" <> head}
+      end
+    end
+  end
+  
   defp safe_string string do
     string
     |> HTML.html_escape

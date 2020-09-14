@@ -33,11 +33,11 @@ defmodule Chan.Repo.Migrations.CreateBBoard do
     end
 
     create table(:replies, prefix: "b") do
-      add :post, references(:posts)
-      add :reply, references(:posts)
+      add :post_id, references(:posts)
+      add :reply_id, references(:posts)
     end
 
-    create unique_index(:replies, [:post, :reply], prefix: "b")
+    create unique_index(:replies, [:post_id, :reply_id], prefix: "b")
 
     Chan.Repo.insert!(%Chan.Boards.Board{
       abb: "b",

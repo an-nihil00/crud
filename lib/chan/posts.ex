@@ -75,8 +75,25 @@ defmodule Chan.Posts do
 	if not sage? do
 	  Repo.update(Ecto.Changeset.change(thread), force: true)
 	end
-	Ecto.build_assoc(thread, :posts, post.changes)
-	|> Repo.insert(prefix: board_id)
+	case Ecto.build_assoc(thread, :posts, post.changes)
+	|> Repo.insert(prefix: board_id) do
+	  {:ok, inserted} ->
+	    with comment <- inserted.comment do
+	      if comment do
+		for post_id <- Regex.scan(~r/>>(\d+)/, comment)
+		|> Enum.map(fn [_ , post_id] -> String.to_integer(post_id) end) do
+		  with op <- Repo.get(Post, post_id, prefix: board_id) do
+		    if op do
+		      add_reply op, inserted, board_id
+		    end
+		  end
+		end
+	      end
+	    end
+	    {:ok, inserted}
+	  {:error, errors} ->
+	    {:error, errors}
+	end
       else
 	Repo.insert(post)
       end
@@ -99,6 +116,14 @@ defmodule Chan.Posts do
     post
     |> Post.changeset(attrs)
     |> Repo.update()
+  end
+  
+  def add_reply(%Post{} = post, reply, board_id) do
+    post
+    |> Repo.preload(:replies)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:replies, [reply])
+    |> Repo.update(prefix: board_id)
   end
 
   @doc """

@@ -15,6 +15,9 @@
       <span class = "timestamp">
 	<%= @post.inserted_at%> <a href="#<%= @post.id%>">No.<%= @post.id%></a>
       </span>
+      <%= for r <- @post.replies do %>
+      <a href = "#<%=r.id%>" class = "backLink">>><%= r.id %></a>
+      <% end %>
     </p>
     <%= if @post.upload != nil do %>
     <% imageLink = ChanWeb.Router.Helpers.board_upload_path(@conn, :show, @board_id, @post.upload.id)%>

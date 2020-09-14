@@ -19,7 +19,7 @@ defmodule Chan.Threads do
 
   """
   def list_threads(board_id) do
-    Repo.all((from t in Thread, preload: [posts: ^from(p in Post, order_by: [asc: :id]), posts: :upload], order_by: [desc: :updated_at]), prefix: board_id)
+    Repo.all((from t in Thread, preload: [posts: ^from(p in Post, order_by: [asc: :id]), posts: :upload, posts: :replies], order_by: [desc: :updated_at]), prefix: board_id)
   end
 
   @doc """
@@ -38,7 +38,7 @@ defmodule Chan.Threads do
   """
   def get_thread!(id,board_id) do
     Repo.get!(Thread, id, prefix: board_id)
-    |> Repo.preload([posts: :upload])
+    |> Repo.preload([posts: :upload, posts: :replies])
   end
   @doc """
   Creates a thread.
