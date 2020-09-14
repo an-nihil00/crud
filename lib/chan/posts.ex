@@ -160,6 +160,12 @@ defmodule Chan.Posts do
 
   """
   def delete_post(%Post{} = post, board_id) do
+    with post <- Repo.preload post, :upload do
+      if post.upload do
+	Upload.local_path(post.upload.id,post.upload.filename)
+	|> File.rm
+      end
+    end
     Repo.delete(post, prefix: board_id)
   end
 

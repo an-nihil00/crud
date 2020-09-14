@@ -8,6 +8,7 @@ defmodule Chan.Threads do
 
   alias Chan.Threads.Thread
   alias Chan.Posts.Post
+  alias Chan.Posts.Upload
 
   @doc """
   Returns the list of threads.
@@ -89,6 +90,14 @@ defmodule Chan.Threads do
 
   """
   def delete_thread(%Thread{} = thread, board_id) do
+    with thread <- Repo.preload thread, posts: :upload do
+      for p <- thread.posts do
+	if p.upload do
+	  Upload.local_path(p.upload.id,p.upload.filename)
+	  |> File.rm
+	end
+      end
+    end
     Repo.delete(thread, prefix: board_id)
   end
 
