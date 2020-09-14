@@ -1,10 +1,8 @@
-# SlimeChan
+# ♡SlimeChan♡
 
-This is an imageboard written in with Phoenix.
+This is an imageboard written in with Phoenix. It's not really on par wit existing imageboard engines and i certainly don't expect anybody to use it, but I wanted to learn phoenix and like imageboards so it seemed like a cool project. I also tried to minimize the amount of JS used, because I have an aversion to it.
 
-## Why?
-
-Because I wanted to learn phoenix and I like imageboards.
+Hope anyone else who sees this enjoys.
 
 ## Setup
 

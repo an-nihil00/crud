@@ -13,7 +13,7 @@
 	  element.classList.toggle("imageThumb")
       }
       function add_reply(id) {
-	  document.getElementById("comment").append("\n>>"+id)
+	  document.getElementById("comment").value += (">>"+id+"\n")
       }
     </script>
   </head>
